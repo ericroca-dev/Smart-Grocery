@@ -14,6 +14,8 @@
 		8A63650522579BAC000EBCC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A63650322579BAC000EBCC3 /* LaunchScreen.storyboard */; };
 		8AC4BE45225A335E000F3DC3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE44225A335E000F3DC3 /* Item.swift */; };
 		8AC4BE5C225A380E000F3DC3 /* Smart_Grocery_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE5B225A380E000F3DC3 /* Smart_Grocery_Tests.swift */; };
+		8AC4BE64225A4969000F3DC3 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE63225A4969000F3DC3 /* ItemTableViewCell.swift */; };
+		8AC4BE66225A4C0C000F3DC3 /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE65225A4C0C000F3DC3 /* ItemTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		8AC4BE59225A380E000F3DC3 /* Smart Grocery Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart Grocery Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC4BE5B225A380E000F3DC3 /* Smart_Grocery_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Smart_Grocery_Tests.swift; sourceTree = "<group>"; };
 		8AC4BE5D225A380E000F3DC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AC4BE63225A4969000F3DC3 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		8AC4BE65225A4C0C000F3DC3 /* ItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 		8A6364F922579BAA000EBCC3 /* Smart Grocery */ = {
 			isa = PBXGroup;
 			children = (
+				8AC4BE67225A4C23000F3DC3 /* Item List */,
 				8AC4BE46225A36CA000F3DC3 /* Entities */,
 				8A6364FA22579BAA000EBCC3 /* AppDelegate.swift */,
 				8A6364FC22579BAA000EBCC3 /* ViewController.swift */,
@@ -105,6 +110,15 @@
 				8AC4BE5D225A380E000F3DC3 /* Info.plist */,
 			);
 			path = "Smart Grocery Tests";
+			sourceTree = "<group>";
+		};
+		8AC4BE67225A4C23000F3DC3 /* Item List */ = {
+			isa = PBXGroup;
+			children = (
+				8AC4BE65225A4C0C000F3DC3 /* ItemTableViewController.swift */,
+				8AC4BE63225A4969000F3DC3 /* ItemTableViewCell.swift */,
+			);
+			path = "Item List";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +222,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AC4BE66225A4C0C000F3DC3 /* ItemTableViewController.swift in Sources */,
+				8AC4BE64225A4969000F3DC3 /* ItemTableViewCell.swift in Sources */,
 				8A6364FD22579BAA000EBCC3 /* ViewController.swift in Sources */,
 				8AC4BE45225A335E000F3DC3 /* Item.swift in Sources */,
 				8A6364FB22579BAA000EBCC3 /* AppDelegate.swift in Sources */,

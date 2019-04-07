@@ -12,9 +12,9 @@ class Item {
     
     //MARK: Properties
     
-    private var name: String
-    private var price: Double
-    private var photo: UIImage
+    private(set) var name: String
+    private(set) var price: Double
+    private(set) var photo: UIImage
     
     //MARK: Initialization
     
