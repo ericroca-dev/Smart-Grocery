@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemTableViewController: UITableViewController {
+class ItemTableViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     //MARK: Properties
     
@@ -40,7 +40,7 @@ class ItemTableViewController: UITableViewController {
         let item = items[indexPath.row]
         
         cell.nameLabel.text = item.name
-        cell.priceLabel.text = String(item.price) + " RON"
+        cell.priceLabel.text = String(format: "%.2f", item.price) + " RON"
         cell.photoImageView.image = item.photo
         
         // Make labels dynamically change width based on text length
@@ -95,6 +95,33 @@ class ItemTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //MARK: Actions
+    
+    @IBAction func takeItemPhoto(_ sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
+    }
+    
+    // Use image after taking photo
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        
+        guard let image = info[.editedImage] as? UIImage else {
+            fatalError("No image found.")
+        }
+        
+        guard let item = Item(name: "Demo", price: 0.0, photo: image) else {
+            fatalError("Unable to instantiate item.")
+        }
+        
+        let newIndexPath = IndexPath(row: items.count, section: 0)
+        items.append(item)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
 
     //MARK: Private methods
     

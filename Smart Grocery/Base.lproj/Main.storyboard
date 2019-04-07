@@ -67,7 +67,13 @@
                             <outlet property="delegate" destination="f8z-gi-QbJ" id="Jug-bS-for"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Items" id="rWM-yU-c5H"/>
+                    <navigationItem key="navigationItem" title="Items" id="rWM-yU-c5H">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="7w9-Wv-te5">
+                            <connections>
+                                <action selector="takeItemPhoto:" destination="f8z-gi-QbJ" id="mtB-vi-2et"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bl6-du-btO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
