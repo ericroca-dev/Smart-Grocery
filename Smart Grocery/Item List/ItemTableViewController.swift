@@ -12,11 +12,15 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     
     //MARK: Properties
     
-    private var items = [Item]()
+    var items = [Item]()
+    var image: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Eliminate empty rows
+        tableView.tableFooterView = UIView(frame: .zero)
+        
         loadSampleItems()
     }
     
@@ -99,28 +103,72 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     //MARK: Actions
     
     @IBAction func takeItemPhoto(_ sender: UIBarButtonItem) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = true
-        imagePicker.delegate = self
-        present(imagePicker, animated: true)
+        let alertController = UIAlertController(title: "Take Photo", message: "Take a photo of the item you want to add.", preferredStyle: .alert)
+        
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true)
+        }
+        alertController.addAction(OKAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+        }
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true, completion:nil)
     }
+    
+    // Add item to table after user input
+    @IBAction func unwindToItemList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? AddItemTableViewController, let item = sourceViewController.item {
+            
+            let newIndexPath = IndexPath(row: items.count, section: 0)
+            items.append(item)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
+    
+    //MARK: Photo Taking
     
     // Use image after taking photo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true)
         
-        guard let image = info[.editedImage] as? UIImage else {
+        guard let pickerImage = info[.editedImage] as? UIImage else {
             fatalError("No image found.")
         }
         
-        guard let item = Item(name: "Demo", price: 0.0, photo: image) else {
-            fatalError("Unable to instantiate item.")
-        }
+        image = pickerImage
         
-        let newIndexPath = IndexPath(row: items.count, section: 0)
-        items.append(item)
-        tableView.insertRows(at: [newIndexPath], with: .automatic)
+//        guard let item = Item(name: "Demo", price: 0.0, photo: image) else {
+//            fatalError("Unable to instantiate item.")
+//        }
+        
+//        let newIndexPath = IndexPath(row: items.count, section: 0)
+//        items.append(item)
+//        tableView.insertRows(at: [newIndexPath], with: .automatic)
+        
+        picker.dismiss(animated: true, completion: {
+            self.performSegue(withIdentifier: "AddItem", sender: self)
+        })
+    }
+    
+    //MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "AddItem" {
+            
+            // Get through Navigation Controller before accessing view
+            if let navigationController = segue.destination as? UINavigationController {
+                if let addItemTableViewController = navigationController.topViewController as? AddItemTableViewController {
+                    addItemTableViewController.image = image
+                }
+            }
+        }
     }
 
     //MARK: Private methods
