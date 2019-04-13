@@ -15,10 +15,11 @@ class Item {
     var name: String
     var price: Double
     var photo: UIImage
+    var barcode: String
     
     //MARK: Initialization
     
-    init?(name: String, price: Double, photo: UIImage) {
+    init?(name: String, price: Double, photo: UIImage, barcode: String) {
         
         // The name must not be empty
         guard !name.isEmpty else {
@@ -30,8 +31,13 @@ class Item {
             return nil
         }
         
+        guard !barcode.isEmpty else {
+            return nil
+        }
+        
         self.name = name
         self.price = price
         self.photo = photo
+        self.barcode = barcode
     }
 }

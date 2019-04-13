@@ -25,12 +25,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="87.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="baQ-rs-EFB">
-                                            <rect key="frame" x="0.0" y="0.0" width="88" height="88"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqg-5r-Odg">
-                                            <rect key="frame" x="96" y="33" width="42" height="22"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="96" y="33" width="43.5" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -40,19 +37,29 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="baQ-rs-EFB">
+                                            <rect key="frame" x="8" y="8" width="72" height="72"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="13"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="aqg-5r-Odg" firstAttribute="centerY" secondItem="baQ-rs-EFB" secondAttribute="centerY" id="1yB-rg-FW9"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="aqg-5r-Odg" secondAttribute="bottom" constant="22" id="2JP-Jn-nJQ"/>
-                                        <constraint firstItem="baQ-rs-EFB" firstAttribute="leading" secondItem="joq-tX-IQC" secondAttribute="leading" id="3b1-Mr-cIn"/>
                                         <constraint firstItem="SHt-yX-bHc" firstAttribute="top" secondItem="joq-tX-IQC" secondAttribute="top" constant="26" id="5zy-fc-dVH"/>
                                         <constraint firstAttribute="bottom" secondItem="SHt-yX-bHc" secondAttribute="bottom" constant="25.5" id="7tA-vN-JhF"/>
-                                        <constraint firstItem="aqg-5r-Odg" firstAttribute="leading" secondItem="baQ-rs-EFB" secondAttribute="trailing" constant="8" id="9Hv-qs-FEe"/>
-                                        <constraint firstItem="aqg-5r-Odg" firstAttribute="leading" secondItem="baQ-rs-EFB" secondAttribute="trailing" constant="8" symbolic="YES" id="DTv-vz-19w"/>
-                                        <constraint firstItem="baQ-rs-EFB" firstAttribute="top" secondItem="joq-tX-IQC" secondAttribute="top" id="OGB-ML-t2b"/>
+                                        <constraint firstItem="baQ-rs-EFB" firstAttribute="top" secondItem="joq-tX-IQC" secondAttribute="topMargin" constant="-3" id="CUI-Rc-HrD"/>
+                                        <constraint firstItem="aqg-5r-Odg" firstAttribute="leading" secondItem="baQ-rs-EFB" secondAttribute="trailing" constant="16" id="DTv-vz-19w"/>
+                                        <constraint firstItem="baQ-rs-EFB" firstAttribute="leading" secondItem="joq-tX-IQC" secondAttribute="leadingMargin" constant="-12" id="QSc-va-UAa"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="baQ-rs-EFB" secondAttribute="bottom" constant="-3" id="Tog-su-5Ep"/>
                                         <constraint firstItem="aqg-5r-Odg" firstAttribute="centerY" secondItem="SHt-yX-bHc" secondAttribute="centerY" id="Xxj-lz-pye"/>
                                         <constraint firstItem="SHt-yX-bHc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aqg-5r-Odg" secondAttribute="trailing" constant="8" symbolic="YES" id="ii3-1g-Mky"/>
                                         <constraint firstItem="aqg-5r-Odg" firstAttribute="leading" secondItem="joq-tX-IQC" secondAttribute="leading" constant="96" id="j6B-VE-J4g"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="baQ-rs-EFB" secondAttribute="bottom" constant="-3" id="n7l-ay-3a8"/>
                                         <constraint firstAttribute="trailing" secondItem="SHt-yX-bHc" secondAttribute="trailing" constant="16" id="wB5-KH-Vez"/>
                                     </constraints>
                                 </tableViewCellContentView>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Vision
 
 class ItemTableViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -14,6 +15,13 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     
     var items = [Item]()
     var image: UIImage?
+    var barcodeValue: String?
+    
+    var barcodePhotoTaken: Bool?
+    
+    lazy var barcodeRequest: VNDetectBarcodesRequest = {
+        return VNDetectBarcodesRequest(completionHandler: self.handleBarcodes)
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,22 +111,24 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     //MARK: Actions
     
     @IBAction func takeItemPhoto(_ sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+        
         let alertController = UIAlertController(title: "Take Photo", message: "Take a photo of the item you want to add.", preferredStyle: .alert)
         
         let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-            let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .camera
-            imagePicker.allowsEditing = true
-            imagePicker.delegate = self
-            self.present(imagePicker, animated: true)
         }
         alertController.addAction(OKAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+            self.dismiss(animated: true)
         }
         alertController.addAction(cancelAction)
 
-        self.present(alertController, animated: true, completion:nil)
+        imagePicker.present(alertController, animated: true, completion: nil)
     }
     
     // Add item to table after user input
@@ -133,26 +143,93 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     
     //MARK: Photo Taking
     
+    func takeBarcodePhoto() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+        
+        let alertController: UIAlertController
+        
+        if (!barcodePhotoTaken!) {
+            alertController = UIAlertController(title: "Scan Barcode", message: "Take a close-up photo of the item's barcode.", preferredStyle: .alert)
+        } else {
+            alertController = UIAlertController(title: "No Barcode Found", message: "Try taking a closer or further photo of the barcode.", preferredStyle: .alert)
+        }
+        
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+        }
+        alertController.addAction(OKAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+            self.dismiss(animated: true)
+            self.barcodePhotoTaken = nil
+        }
+        alertController.addAction(cancelAction)
+        
+        imagePicker.present(alertController, animated: true, completion: nil)
+    }
+    
     // Use image after taking photo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         guard let pickerImage = info[.editedImage] as? UIImage else {
             fatalError("No image found.")
         }
+        guard let ciImage = CIImage(image: pickerImage) else {
+            fatalError("Can't create CIImage from UIImage.")
+        }
         
-        image = pickerImage
+        // Only save item image
+        if (self.barcodePhotoTaken == nil) {
+            image = pickerImage
+        }
         
-//        guard let item = Item(name: "Demo", price: 0.0, photo: image) else {
-//            fatalError("Unable to instantiate item.")
-//        }
-        
-//        let newIndexPath = IndexPath(row: items.count, section: 0)
-//        items.append(item)
-//        tableView.insertRows(at: [newIndexPath], with: .automatic)
+        // Run the rectangle detector, which upon completion runs the ML classifier
+        let handler = VNImageRequestHandler(ciImage: ciImage, options: [.properties: ""])
+        DispatchQueue.global(qos: .userInteractive).async {
+            do {
+                try handler.perform([self.barcodeRequest])
+            } catch {
+                print(error)
+            }
+        }
         
         picker.dismiss(animated: true, completion: {
-            self.performSegue(withIdentifier: "AddItem", sender: self)
+            
+            // On first pass, result will be false
+            // On second pass, result will be true
+            // Next passes will not change the result
+            if (self.barcodePhotoTaken == nil) {
+                self.barcodePhotoTaken = false
+            } else if (self.barcodePhotoTaken == false) {
+                self.barcodePhotoTaken = true
+            }
+            
+            // Barcode photo will only be taken once; if it was not taken
+            // Or until a barcode is found
+            if (!self.barcodePhotoTaken! || self.barcodeValue == nil) {
+                self.self.takeBarcodePhoto()
+            } else {
+                self.performSegue(withIdentifier: "AddItem", sender: self)
+            }
         })
+        
+        
+//        picker.dismiss(animated: true, completion: {
+////            let alertController = UIAlertController(title: "Barcode", message: self.barcodeValue!, preferredStyle: .alert)
+////            self.present(alertController, animated: true, completion:nil)
+////
+////            let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+////                self.performSegue(withIdentifier: "AddItem", sender: self)
+////            }
+////            alertController.addAction(OKAction)
+//
+//            // self.takeBarcodePhoto()
+//
+//            // self.performSegue(withIdentifier: "AddItem", sender: self)
+//        })
     }
     
     //MARK: Navigation
@@ -166,6 +243,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             if let navigationController = segue.destination as? UINavigationController {
                 if let addItemTableViewController = navigationController.topViewController as? AddItemTableViewController {
                     addItemTableViewController.image = image
+                    addItemTableViewController.barcode = barcodeValue
                 }
             }
         }
@@ -176,10 +254,29 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     private func loadSampleItems() {
         let photo1 = UIImage(named: "testImage")!
         
-        guard let item1 = Item(name: "Coca-Cola", price: 3.50, photo: photo1) else {
+        guard let item1 = Item(name: "Coca-Cola", price: 3.50, photo: photo1, barcode: "00000000") else {
             fatalError("Unable to instantiate item1.")
         }
         
         items += [item1]
+    }
+    
+    private func handleBarcodes(request: VNRequest, error: Error?) {
+        guard let observations = request.results as? [VNBarcodeObservation] else {
+            fatalError("Unexpected result type from VNBarcodeRequest.")
+        }
+        guard observations.first != nil else {
+            DispatchQueue.main.async {
+                print("No barcode detected.")
+            }
+            return
+        }
+        
+        for result in request.results! {
+            if let barcode = result as? VNBarcodeObservation {
+                barcodeValue = barcode.payloadStringValue!
+                print("Barcode: \(barcodeValue!)")
+            }
+        }
     }
 }

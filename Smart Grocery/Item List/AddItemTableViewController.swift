@@ -17,6 +17,7 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate {
     // This value is used to construct a new item
     var item: Item?
     var image: UIImage?
+    var barcode: String?
 
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
@@ -145,9 +146,12 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate {
         let name = nameCell.textField.text ?? ""
         let priceString = priceCell.textField.text ?? ""
         
-        let price = Double(priceString)
+        // String to Double conversion does not work with comma
+        let correctedPriceString = priceString.replacingOccurrences(of: ",", with: ".")
         
-        item = Item(name: name, price: price!, photo: image!)
+        let price = Double(correctedPriceString)
+        
+        item = Item(name: name, price: price!, photo: image!, barcode: barcode!)
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
