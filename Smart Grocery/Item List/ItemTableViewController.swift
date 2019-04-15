@@ -28,6 +28,11 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
 
         // Eliminate empty rows
         tableView.tableFooterView = UIView(frame: .zero)
+
+        // Load any saved items
+        if let savedItems = loadItems() {
+            items += savedItems
+        }
         
         loadSampleItems()
     }
@@ -139,6 +144,8 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             items.append(item)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
+        
+        saveItems()
     }
     
     //MARK: Photo Taking
@@ -278,5 +285,19 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
                 print("Barcode: \(barcodeValue!)")
             }
         }
+    }
+    
+    private func saveItems() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(items, toFile: Item.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            print("Items successfully saved.")
+        } else {
+            fatalError("Failed to save items.")
+        }
+    }
+    
+    private func loadItems() -> [Item]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ArchiveURL.path) as? [Item]
     }
 }

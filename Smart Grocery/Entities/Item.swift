@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Item {
+class Item: NSObject, NSCoding {
     
     //MARK: Properties
     
@@ -16,6 +16,20 @@ class Item {
     var price: Double
     var photo: UIImage
     var barcode: String
+    
+    //MARK: Types
+    
+    struct PropertyKey {
+        static let name = "name"
+        static let price = "price"
+        static let photo = "photo"
+        static let barcode = "barcode"
+    }
+    
+    //MARK: Archiving Paths
+    
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("items")
     
     //MARK: Initialization
     
@@ -39,5 +53,29 @@ class Item {
         self.price = price
         self.photo = photo
         self.barcode = barcode
+    }
+    
+    //MARK:NSCoding
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: PropertyKey.name)
+        aCoder.encode(price, forKey: PropertyKey.price)
+        aCoder.encode(photo, forKey: PropertyKey.photo)
+        aCoder.encode(barcode, forKey: PropertyKey.barcode)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard let name = aDecoder.decodeObject(forKey: PropertyKey.name) as? String else {
+            fatalError("Unable to decode the name for an Item object.")
+        }
+        let price = aDecoder.decodeDouble(forKey: PropertyKey.price)
+        guard let photo = aDecoder.decodeObject(forKey: PropertyKey.photo) as? UIImage else {
+            fatalError("Unable to decode the photo for an Item object.")
+        }
+        guard let barcode = aDecoder.decodeObject(forKey: PropertyKey.barcode) as? String else {
+            fatalError("Unable to decode the barcode for an Item object.")
+        }
+        
+        self.init(name: name, price: price, photo: photo, barcode: barcode)
     }
 }
