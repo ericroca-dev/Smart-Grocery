@@ -55,11 +55,11 @@
                                         <constraint firstItem="baQ-rs-EFB" firstAttribute="top" secondItem="joq-tX-IQC" secondAttribute="topMargin" constant="-3" id="CUI-Rc-HrD"/>
                                         <constraint firstItem="aqg-5r-Odg" firstAttribute="leading" secondItem="baQ-rs-EFB" secondAttribute="trailing" constant="16" id="DTv-vz-19w"/>
                                         <constraint firstItem="baQ-rs-EFB" firstAttribute="leading" secondItem="joq-tX-IQC" secondAttribute="leadingMargin" constant="-12" id="QSc-va-UAa"/>
+                                        <constraint firstItem="baQ-rs-EFB" firstAttribute="leading" secondItem="joq-tX-IQC" secondAttribute="leading" constant="8" id="TLb-Zo-GpC"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="baQ-rs-EFB" secondAttribute="bottom" constant="-3" id="Tog-su-5Ep"/>
                                         <constraint firstItem="aqg-5r-Odg" firstAttribute="centerY" secondItem="SHt-yX-bHc" secondAttribute="centerY" id="Xxj-lz-pye"/>
                                         <constraint firstItem="SHt-yX-bHc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aqg-5r-Odg" secondAttribute="trailing" constant="8" symbolic="YES" id="ii3-1g-Mky"/>
                                         <constraint firstItem="aqg-5r-Odg" firstAttribute="leading" secondItem="joq-tX-IQC" secondAttribute="leading" constant="96" id="j6B-VE-J4g"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="baQ-rs-EFB" secondAttribute="bottom" constant="-3" id="n7l-ay-3a8"/>
                                         <constraint firstAttribute="trailing" secondItem="SHt-yX-bHc" secondAttribute="trailing" constant="16" id="wB5-KH-Vez"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -151,11 +151,11 @@
             </objects>
             <point key="canvasLocation" x="2915.9420289855075" y="127.90178571428571"/>
         </scene>
-        <!--Search-->
+        <!--Navigation Controller-->
         <scene sceneID="6BX-65-ypy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Sar-L9-JFS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" id="hGW-Sa-Qlz"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="hGW-Sa-Qlz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="trZ-g6-gyI">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -194,6 +194,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="3YG-aF-Sfc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YNf-wc-Z12">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
