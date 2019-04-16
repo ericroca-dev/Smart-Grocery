@@ -19,12 +19,24 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     
     var barcodePhotoTaken: Bool?
     
+    var filteredItems = [Item]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     lazy var barcodeRequest: VNDetectBarcodesRequest = {
         return VNDetectBarcodesRequest(completionHandler: self.handleBarcodes)
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Search Controller setup
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Items"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
 
         // Eliminate empty rows
         tableView.tableFooterView = UIView(frame: .zero)
@@ -34,7 +46,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             items += savedItems
         }
         
-        loadSampleItems()
+        // loadSampleItems()
     }
     
     // MARK: - Table view data source
@@ -44,7 +56,11 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        if isFiltering() {
+            return filteredItems.count
+        } else {
+            return items.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,8 +69,15 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             fatalError("The dequeued cell is not an instance of ItemTableViewCell.")
         }
 
+        let item: Item
+        
         // Fetches the appropriate item for the data source layout
-        let item = items[indexPath.row]
+        
+        if isFiltering() {
+            item = filteredItems[indexPath.row]
+        } else {
+            item = items[indexPath.row]
+        }
         
         cell.nameLabel.text = item.name
         cell.priceLabel.text = String(format: "%.2f", item.price) + " RON"
@@ -299,5 +322,30 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     
     private func loadItems() -> [Item]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ArchiveURL.path) as? [Item]
+    }
+    
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredItems = items.filter({(item: Item) -> Bool in
+            return item.name.lowercased().contains(searchText.lowercased())
+        })
+        
+        tableView.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+}
+
+//MARK: UISearchController
+
+extension ItemTableViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }
