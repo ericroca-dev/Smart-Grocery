@@ -67,6 +67,7 @@
                                     <outlet property="nameLabel" destination="aqg-5r-Odg" id="wwo-Xt-CdQ"/>
                                     <outlet property="photoImageView" destination="baQ-rs-EFB" id="clV-7d-9SM"/>
                                     <outlet property="priceLabel" destination="SHt-yX-bHc" id="m32-ZZ-ihc"/>
+                                    <segue destination="8f2-wr-VT1" kind="show" identifier="ShowDetails" id="wr8-fI-VOB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -88,7 +89,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bl6-du-btO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1173.913043478261" y="129.91071428571428"/>
+            <point key="canvasLocation" x="1175" y="130"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="N7u-nu-hvn">
@@ -149,7 +150,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pTH-Gc-IwJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bSH-rW-qlk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2915.9420289855075" y="127.90178571428571"/>
+            <point key="canvasLocation" x="2914" y="651"/>
+        </scene>
+        <!--Details Table View Controller-->
+        <scene sceneID="Nes-6w-7xl">
+            <objects>
+                <tableViewController id="8f2-wr-VT1" customClass="DetailsTableViewController" customModule="Smart_Grocery" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="414" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HL7-Zh-RHW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsPhotoTableViewCell" id="juP-OT-nyd" customClass="DetailsPhotoTableViewCell" customModule="Smart_Grocery" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="414"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="juP-OT-nyd" id="Dyv-OH-UoG">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="413.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFi-36-1N4">
+                                            <rect key="frame" x="16" y="16" width="382" height="382"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="13"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="photoImageView" destination="OFi-36-1N4" id="f8w-xJ-MBN"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="8f2-wr-VT1" id="Mzv-qT-61A"/>
+                            <outlet property="delegate" destination="8f2-wr-VT1" id="ogF-3f-3gY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="8hN-Pp-Fzc"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eVe-Ly-iax" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5344.9275362318849" y="127.90178571428571"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6BX-65-ypy">
@@ -186,7 +231,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zmd-Od-zcK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2005.7971014492755" y="127.90178571428571"/>
+            <point key="canvasLocation" x="1999" y="651"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zBs-uT-xj5">

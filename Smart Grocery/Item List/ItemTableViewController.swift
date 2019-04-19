@@ -276,6 +276,30 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
                     addItemTableViewController.barcode = barcodeValue
                 }
             }
+        } else if segue.identifier == "ShowDetails" {
+            
+            guard let detailsTableViewController = segue.destination as? DetailsTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination).")
+            }
+            
+            guard let selectedItemCell = sender as? ItemTableViewCell else {
+                fatalError("Unexpected sender: \(sender).")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedItemCell) else {
+                fatalError("The selected cell is not being displayed by the table.")
+            }
+            
+            let selectedItem: Item
+            
+            if isFiltering() {
+                selectedItem = filteredItems[indexPath.row]
+            } else {
+                selectedItem = items[indexPath.row]
+            }
+            
+            detailsTableViewController.name = selectedItem.name
+            detailsTableViewController.image = selectedItem.photo
         }
     }
 
