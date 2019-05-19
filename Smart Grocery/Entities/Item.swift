@@ -17,6 +17,7 @@ class Item: NSObject, NSCoding {
     var category: String
     var photo: UIImage
     var barcode: String
+    var location: [Double] = [Double]()
     
     //MARK: Types
     
@@ -26,6 +27,7 @@ class Item: NSObject, NSCoding {
         static let category = "category"
         static let photo = "photo"
         static let barcode = "barcode"
+        static let location = "location"
     }
     
     //MARK: Archiving Paths
@@ -35,7 +37,7 @@ class Item: NSObject, NSCoding {
     
     //MARK: Initialization
     
-    init?(name: String, price: Double, category: String, photo: UIImage, barcode: String) {
+    init?(name: String, price: Double, category: String, photo: UIImage, barcode: String, location: [Double]) {
         
         // The name must not be empty
         guard !name.isEmpty else {
@@ -52,7 +54,13 @@ class Item: NSObject, NSCoding {
             return nil
         }
         
+        // The barcode must not be empty
         guard !barcode.isEmpty else {
+            return nil
+        }
+        
+        // The location must not be empty
+        guard !location.isEmpty else {
             return nil
         }
         
@@ -61,6 +69,7 @@ class Item: NSObject, NSCoding {
         self.category = category
         self.photo = photo
         self.barcode = barcode
+        self.location = location
     }
     
     //MARK:NSCoding
@@ -71,6 +80,7 @@ class Item: NSObject, NSCoding {
         aCoder.encode(category, forKey: PropertyKey.category)
         aCoder.encode(photo, forKey: PropertyKey.photo)
         aCoder.encode(barcode, forKey: PropertyKey.barcode)
+        aCoder.encode(location, forKey: PropertyKey.location)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -87,7 +97,10 @@ class Item: NSObject, NSCoding {
         guard let barcode = aDecoder.decodeObject(forKey: PropertyKey.barcode) as? String else {
             fatalError("Unable to decode the barcode for an Item object.")
         }
+        guard let location = aDecoder.decodeObject(forKey: PropertyKey.location) as? [Double] else {
+            fatalError("Unable to decode the location for an Item object.")
+        }
         
-        self.init(name: name, price: price, category: category, photo: photo, barcode: barcode)
+        self.init(name: name, price: price, category: category, photo: photo, barcode: barcode, location: location)
     }
 }

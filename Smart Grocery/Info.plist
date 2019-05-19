@@ -41,5 +41,9 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Allows you to take pictures of items you add.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allows you to record the place where you added the item.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allows you to record the place where you added the item.</string>
 </dict>
 </plist>

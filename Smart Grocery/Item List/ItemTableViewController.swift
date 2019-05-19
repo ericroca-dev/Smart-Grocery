@@ -48,6 +48,9 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             items += savedItems
         }
         
+        for item in items {
+            print(item.location)
+        }
         // loadSampleItems()
     }
     
@@ -305,15 +308,15 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
 
     //MARK: Private methods
     
-    private func loadSampleItems() {
-        let photo1 = UIImage(named: "testImage")!
-        
-        guard let item1 = Item(name: "Coca-Cola", price: 3.50, category: "Beverage", photo: photo1, barcode: "00000000") else {
-            fatalError("Unable to instantiate item1.")
-        }
-        
-        items += [item1]
-    }
+//    private func loadSampleItems() {
+//        let photo1 = UIImage(named: "testImage")!
+//
+//        guard let item1 = Item(name: "Coca-Cola", price: 3.50, category: "Beverage", photo: photo1, barcode: "00000000") else {
+//            fatalError("Unable to instantiate item1.")
+//        }
+//
+//        items += [item1]
+//    }
     
     private func handleBarcodes(request: VNRequest, error: Error?) {
         guard let observations = request.results as? [VNBarcodeObservation] else {
