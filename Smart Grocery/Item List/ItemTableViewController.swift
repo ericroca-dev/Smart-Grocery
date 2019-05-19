@@ -49,8 +49,12 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         }
         
         for item in items {
-            print(item.location)
+            for location in item.locations {
+                print(location.latitude)
+                print(location.longitude)
+            }
         }
+    
         // loadSampleItems()
     }
     
@@ -85,7 +89,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         }
         
         cell.nameLabel.text = item.name
-        cell.priceLabel.text = String(format: "%.2f", item.price) + " RON"
+        cell.priceLabel.text = String(format: "%.2f", item.prices[0]) + " RON"
         cell.photoImageView.image = item.photo
         
         // Make labels dynamically change width based on text length
@@ -303,6 +307,9 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             
             detailsTableViewController.name = selectedItem.name
             detailsTableViewController.image = selectedItem.photo
+            detailsTableViewController.category = selectedItem.category
+            detailsTableViewController.prices = selectedItem.prices
+            detailsTableViewController.locations = selectedItem.locations
         }
     }
 

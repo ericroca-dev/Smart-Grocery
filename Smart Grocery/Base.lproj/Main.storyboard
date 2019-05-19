@@ -184,15 +184,72 @@
                                     <outlet property="photoImageView" destination="OFi-36-1N4" id="f8w-xJ-MBN"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="88" id="QsV-mf-DQn">
-                                <rect key="frame" x="0.0" y="442" width="414" height="88"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsCategoryLabelTableViewCell" rowHeight="44" id="bIc-8a-e31" customClass="DetailsCategoryLabelTableViewCell" customModule="Smart_Grocery" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="442" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bIc-8a-e31" id="UeH-s2-WdB">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MxI-0m-BYj">
+                                            <rect key="frame" x="20" y="11" width="374" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="MxI-0m-BYj" firstAttribute="trailing" secondItem="UeH-s2-WdB" secondAttribute="trailingMargin" id="9Uk-G0-4qS"/>
+                                        <constraint firstItem="MxI-0m-BYj" firstAttribute="leading" secondItem="UeH-s2-WdB" secondAttribute="leadingMargin" id="J1c-MH-2s8"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="MxI-0m-BYj" secondAttribute="bottom" id="NVL-XZ-aYz"/>
+                                        <constraint firstItem="MxI-0m-BYj" firstAttribute="top" secondItem="UeH-s2-WdB" secondAttribute="topMargin" id="umg-Om-SUg"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="categoryLabel" destination="MxI-0m-BYj" id="vQ2-Ma-wYg"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsPriceTableViewCell" rowHeight="88" id="QsV-mf-DQn" customClass="DetailsPriceTableViewCell" customModule="Smart_Grocery" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="486" width="414" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QsV-mf-DQn" id="2km-8I-eKV">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="87.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dom-uL-4ca">
+                                            <rect key="frame" x="20" y="33" width="247" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMY-Vr-GLw">
+                                            <rect key="frame" x="352" y="33.5" width="42" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="centerY" secondItem="2km-8I-eKV" secondAttribute="centerY" id="23K-AR-lsO"/>
+                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="trailing" secondItem="2km-8I-eKV" secondAttribute="trailingMargin" id="5Yl-zf-NG6"/>
+                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="leading" secondItem="dom-uL-4ca" secondAttribute="trailing" constant="85" id="I9N-rl-YkT"/>
+                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="top" secondItem="2km-8I-eKV" secondAttribute="topMargin" constant="22.5" id="JZY-IC-YR3"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="AMY-Vr-GLw" secondAttribute="bottom" constant="23" id="NNe-hk-Pqx"/>
+                                        <constraint firstItem="dom-uL-4ca" firstAttribute="top" secondItem="2km-8I-eKV" secondAttribute="topMargin" constant="22" id="NVf-5l-x7Z"/>
+                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="trailing" secondItem="2km-8I-eKV" secondAttribute="trailingMargin" id="Pa9-lG-SFo"/>
+                                        <constraint firstItem="dom-uL-4ca" firstAttribute="leading" secondItem="2km-8I-eKV" secondAttribute="leadingMargin" id="RYG-Ce-Glw"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="dom-uL-4ca" secondAttribute="bottom" constant="23" id="jPF-mf-1Hy"/>
+                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="leading" secondItem="dom-uL-4ca" secondAttribute="trailing" constant="85" id="jXj-sx-Oph"/>
+                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="baseline" secondItem="dom-uL-4ca" secondAttribute="baseline" id="waZ-lE-Y4b"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="locationLabel" destination="dom-uL-4ca" id="YwM-9F-lBg"/>
+                                    <outlet property="priceLabel" destination="AMY-Vr-GLw" id="nCv-rG-fpn"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="8f2-wr-VT1" id="Mzv-qT-61A"/>
                             <outlet property="delegate" destination="8f2-wr-VT1" id="ogF-3f-3gY"/>
@@ -202,7 +259,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVe-Ly-iax" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5329" y="111"/>
+            <point key="canvasLocation" x="5328.985507246377" y="110.49107142857143"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6BX-65-ypy">

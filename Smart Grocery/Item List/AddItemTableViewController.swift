@@ -26,7 +26,7 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate, UI
     var item: Item?
     var image: UIImage?
     var barcode: String?
-    var location: [Double]?
+    var location: Location?
 
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
@@ -215,7 +215,7 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate, UI
         
         let price = Double(correctedPriceString)
         
-        item = Item(name: name, price: price!, category: category, photo: image!, barcode: barcode!, location: location!)
+        item = Item(name: name, prices: [price!], category: category, photo: image!, barcode: barcode!, locations: [location!])
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -246,13 +246,15 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate, UI
     // Capture the picker view selection
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         categoryTextField!.text = pickerData[row]
+        self.view.endEditing(true)
+        updateDoneButtonState()
     }
     
     //MARK: Location Manager
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = locations.last {
             print("Current location: \(currentLocation)")
-            location = [currentLocation.coordinate.latitude, currentLocation.coordinate.longitude]
+            location = Location(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
         }
     }
     
