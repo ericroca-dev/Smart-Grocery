@@ -14,6 +14,7 @@ class Item: NSObject, NSCoding {
     
     var name: String
     var price: Double
+    var category: String
     var photo: UIImage
     var barcode: String
     
@@ -22,6 +23,7 @@ class Item: NSObject, NSCoding {
     struct PropertyKey {
         static let name = "name"
         static let price = "price"
+        static let category = "category"
         static let photo = "photo"
         static let barcode = "barcode"
     }
@@ -33,7 +35,7 @@ class Item: NSObject, NSCoding {
     
     //MARK: Initialization
     
-    init?(name: String, price: Double, photo: UIImage, barcode: String) {
+    init?(name: String, price: Double, category: String, photo: UIImage, barcode: String) {
         
         // The name must not be empty
         guard !name.isEmpty else {
@@ -45,12 +47,18 @@ class Item: NSObject, NSCoding {
             return nil
         }
         
+        // The category must not be empty
+        guard !category.isEmpty else {
+            return nil
+        }
+        
         guard !barcode.isEmpty else {
             return nil
         }
         
         self.name = name
         self.price = price
+        self.category = category
         self.photo = photo
         self.barcode = barcode
     }
@@ -60,6 +68,7 @@ class Item: NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: PropertyKey.name)
         aCoder.encode(price, forKey: PropertyKey.price)
+        aCoder.encode(category, forKey: PropertyKey.category)
         aCoder.encode(photo, forKey: PropertyKey.photo)
         aCoder.encode(barcode, forKey: PropertyKey.barcode)
     }
@@ -72,10 +81,13 @@ class Item: NSObject, NSCoding {
         guard let photo = aDecoder.decodeObject(forKey: PropertyKey.photo) as? UIImage else {
             fatalError("Unable to decode the photo for an Item object.")
         }
+        guard let category = aDecoder.decodeObject(forKey: PropertyKey.category) as? String else {
+            fatalError("Unable to decode the category for an Item object.")
+        }
         guard let barcode = aDecoder.decodeObject(forKey: PropertyKey.barcode) as? String else {
             fatalError("Unable to decode the barcode for an Item object.")
         }
         
-        self.init(name: name, price: price, photo: photo, barcode: barcode)
+        self.init(name: name, price: price, category: category, photo: photo, barcode: barcode)
     }
 }

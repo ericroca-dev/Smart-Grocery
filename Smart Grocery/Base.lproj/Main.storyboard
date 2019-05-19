@@ -184,6 +184,14 @@
                                     <outlet property="photoImageView" destination="OFi-36-1N4" id="f8w-xJ-MBN"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="88" id="QsV-mf-DQn">
+                                <rect key="frame" x="0.0" y="442" width="414" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QsV-mf-DQn" id="2km-8I-eKV">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="87.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="8f2-wr-VT1" id="Mzv-qT-61A"/>
@@ -194,7 +202,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVe-Ly-iax" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5344.9275362318849" y="127.90178571428571"/>
+            <point key="canvasLocation" x="5329" y="111"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6BX-65-ypy">

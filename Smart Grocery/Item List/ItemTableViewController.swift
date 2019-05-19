@@ -308,7 +308,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     private func loadSampleItems() {
         let photo1 = UIImage(named: "testImage")!
         
-        guard let item1 = Item(name: "Coca-Cola", price: 3.50, photo: photo1, barcode: "00000000") else {
+        guard let item1 = Item(name: "Coca-Cola", price: 3.50, category: "Beverage", photo: photo1, barcode: "00000000") else {
             fatalError("Unable to instantiate item1.")
         }
         

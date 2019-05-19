@@ -151,7 +151,7 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate {
         
         let price = Double(correctedPriceString)
         
-        item = Item(name: name, price: price!, photo: image!, barcode: barcode!)
+        item = Item(name: name, price: price!, category: "Demo", photo: image!, barcode: barcode!)
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
