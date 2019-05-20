@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -246,6 +247,7 @@
                                 <connections>
                                     <outlet property="locationLabel" destination="dom-uL-4ca" id="YwM-9F-lBg"/>
                                     <outlet property="priceLabel" destination="AMY-Vr-GLw" id="nCv-rG-fpn"/>
+                                    <segue destination="Ac8-dG-cBU" kind="show" identifier="ShowDetailsMap" id="w1U-hS-brd"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -260,6 +262,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVe-Ly-iax" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5328.985507246377" y="110.49107142857143"/>
+        </scene>
+        <!--Details Map View Controller-->
+        <scene sceneID="J9X-lA-yQ9">
+            <objects>
+                <viewController id="Ac8-dG-cBU" customClass="DetailsMapViewController" customModule="Smart_Grocery" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zve-qX-Npe" customClass="GMSMapView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="U1o-Xo-EP4"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="zve-qX-Npe" id="Y58-Sr-hOu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="znH-wV-FHM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6520" y="110"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6BX-65-ypy">
