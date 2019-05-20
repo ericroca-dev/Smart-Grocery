@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GooglePlaces
+import GoogleMaps
 
 class DetailsTableViewController: UITableViewController {
     
@@ -17,9 +19,12 @@ class DetailsTableViewController: UITableViewController {
     var category: String?
     var prices: [Double]?
     var locations: [Location]?
+    var placesClient: GMSPlacesClient!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        placesClient = GMSPlacesClient.shared()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -77,9 +82,42 @@ class DetailsTableViewController: UITableViewController {
                 fatalError("The dequeued cell is not an instance of DetailsPriceTableViewCell.")
             }
             
+            let geocoder = GMSGeocoder()
+            let coordinate = CLLocationCoordinate2DMake(locations![indexPath.row - 2].latitude, locations![indexPath.row - 2].longitude)
+            
+            var currentAddress = String()
+            
+            geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+                //
+                if error != nil {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                } else {
+                    if let places = response?.results() {
+                        if let place = places.first {
+                            
+                            if let lines = place.lines {
+                                print("GEOCODE: Formatted Address: \(lines)")
+                            }
+                            
+                            currentAddress = (place.lines?.joined(separator: "\n"))!
+                            print("Current address: \(currentAddress)")
+                            cell.locationLabel.text = currentAddress.components(separatedBy: ",")[0]
+                        } else {
+                            print("GEOCODE: nil first in places")
+                        }
+                    } else {
+                        print("GEOCODE: nil in places")
+                    }
+                }
+            }
+            
             cell.priceLabel.text = String(format: "%.2f", prices![indexPath.row - 2]) + " RON"
-            cell.locationLabel.text = String(locations![indexPath.row - 2].longitude)
-            print(String(locations![indexPath.row - 2].longitude))
+            
+            print("Current address split: \(currentAddress.components(separatedBy: ",")[0])")
+            
+            cell.priceLabel.sizeToFit()
+            cell.locationLabel.sizeToFit()
+            //print(String(locations![indexPath.row - 2].longitude))
             
             return cell
         }
