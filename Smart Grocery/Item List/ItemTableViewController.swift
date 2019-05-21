@@ -8,6 +8,7 @@
 
 import UIKit
 import Vision
+import Firebase
 
 class ItemTableViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -48,11 +49,71 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             items += savedItems
         }
         
+        // Get a reference to the storage service using the default Firebase App
+        let storage = Storage.storage()
+        
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference()
+        
+        // Firebase Cloud Firestore initialization
+        let db = Firestore.firestore()
+        
         for item in items {
-            for location in item.locations {
-                print(location.latitude)
-                print(location.longitude)
+            // Add a new document with a generated ID
+            var ref: DocumentReference? = nil
+            
+            // Convert prices to String
+            var stringPrices: [String] = [String]()
+            for price in item.prices {
+                stringPrices.append(String(price))
             }
+            
+            // Convert locations to String
+            var stringLocations: [[String]] = [[String]]()
+            for location in item.locations {
+                stringLocations.append([String(location.latitude), String(location.longitude)])
+            }
+            
+            // Create a reference to the file you want to upload
+            let photoRef = storageRef.child("images/\(item.name).jpg")
+            
+            var imageURL = String()
+            
+//            // Upload the file to the path "images/rivers.jpg"
+//            let uploadTask = photoRef.putData(item.photo.pngData()!, metadata: nil) { (metadata, error) in
+//                guard let metadata = metadata else {
+//                    // Uh-oh, an error occurred!
+//                    return
+//                }
+//                // Metadata contains file metadata such as size, content-type.
+//                let size = metadata.size
+//                // You can also access to download URL after upload.
+//                photoRef.downloadURL { (url, error) in
+//                    guard let downloadURL = url else {
+//                        // Uh-oh, an error occurred!
+//                        return
+//                    }
+//                    imageURL = downloadURL.absoluteString
+//
+//                    // Build document data
+//                    let documentData: [String: Any] = [
+//                        "name": item.name,
+//                        "prices": stringPrices,
+//                        "category": item.category,
+//                        "image": imageURL,
+//                        "barcode": item.barcode,
+//                        "locations": [String(item.locations[0].latitude), String(item.locations[0].longitude)]
+//                    ]
+//
+//                    ref = db.collection("products").addDocument(data: documentData) { err in
+//                        if let err = err {
+//                            print("Error adding document: \(err)")
+//                        } else {
+//                            print("Document added with ID: \(ref!.documentID)")
+//                        }
+//                    }
+//                }
+//            }
         }
     
         // loadSampleItems()
