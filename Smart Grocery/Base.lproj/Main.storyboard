@@ -92,6 +92,120 @@
             </objects>
             <point key="canvasLocation" x="1175" y="130"/>
         </scene>
+        <!--Lists-->
+        <scene sceneID="NK2-2Y-oCu">
+            <objects>
+                <tableViewController id="Gsg-Ga-14G" customClass="ListsTableViewController" customModule="Smart_Grocery" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ota-bU-VV8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListsTableViewCell" id="hPS-Ni-alU" customClass="ListsTableViewCell" customModule="Smart_Grocery" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="66"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hPS-Ni-alU" id="aE1-ps-DTO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYe-qc-DwH">
+                                            <rect key="frame" x="20" y="11" width="374" height="44"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="CYe-qc-DwH" firstAttribute="trailing" secondItem="aE1-ps-DTO" secondAttribute="trailingMargin" id="FdW-d3-E94"/>
+                                        <constraint firstItem="CYe-qc-DwH" firstAttribute="top" secondItem="aE1-ps-DTO" secondAttribute="topMargin" id="IXj-Ht-LWS"/>
+                                        <constraint firstItem="CYe-qc-DwH" firstAttribute="leading" secondItem="aE1-ps-DTO" secondAttribute="leadingMargin" id="R9a-bj-NAI"/>
+                                        <constraint firstItem="CYe-qc-DwH" firstAttribute="bottom" secondItem="aE1-ps-DTO" secondAttribute="bottomMargin" id="Tcp-mX-uhW"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="listLabel" destination="CYe-qc-DwH" id="HZz-UN-Y8B"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Gsg-Ga-14G" id="ttu-rZ-VGL"/>
+                            <outlet property="delegate" destination="Gsg-Ga-14G" id="BLy-jl-8pn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Lists" id="nfp-17-5Yl">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="lvf-tT-Agq">
+                            <connections>
+                                <segue destination="0P2-CI-D94" kind="presentation" id="GBP-j2-guW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fml-uS-Ky4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1581" y="1566"/>
+        </scene>
+        <!--Add List-->
+        <scene sceneID="iZ3-9S-Hcg">
+            <objects>
+                <tableViewController id="Z7u-om-xZg" customClass="AddListTableViewController" customModule="Smart_Grocery" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ezD-nh-pZA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddListTableViewCell" id="Mws-4y-bLE" customClass="AddListTableViewCell" customModule="Smart_Grocery" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mws-4y-bLE" id="uCe-Gj-O86">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Hkh-oP-x5V">
+                                            <rect key="frame" x="20" y="7" width="374" height="30"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Hkh-oP-x5V" secondAttribute="trailing" constant="20" id="KmS-AS-R8K"/>
+                                        <constraint firstItem="Hkh-oP-x5V" firstAttribute="leading" secondItem="uCe-Gj-O86" secondAttribute="leading" constant="20" id="TQ2-w6-Bwe"/>
+                                        <constraint firstAttribute="bottom" secondItem="Hkh-oP-x5V" secondAttribute="bottom" constant="6.5" id="ewI-sC-z1Y"/>
+                                        <constraint firstItem="Hkh-oP-x5V" firstAttribute="top" secondItem="uCe-Gj-O86" secondAttribute="top" constant="7" id="j3Y-0i-QGT"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="textField" destination="Hkh-oP-x5V" id="eBN-Rg-Cug"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Z7u-om-xZg" id="Yvo-v8-RVH"/>
+                            <outlet property="delegate" destination="Z7u-om-xZg" id="WXM-m1-rAD"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add List" id="fyn-Lm-m5k">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="R4A-ko-uo5">
+                            <connections>
+                                <action selector="cancel:" destination="Z7u-om-xZg" id="SDy-Ge-9lV"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="nOQ-eT-jUE">
+                            <connections>
+                                <segue destination="ay0-GJ-vfZ" kind="unwind" unwindAction="unwindToListTableWithSender:" id="7IB-Uj-VQz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="nOQ-eT-jUE" id="Xcl-gD-7R1"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2xm-ae-VaQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ay0-GJ-vfZ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3889.8550724637685" y="1565.625"/>
+        </scene>
         <!--Add Item-->
         <scene sceneID="N7u-nu-hvn">
             <objects>
@@ -101,7 +215,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddItemTableViewCell" id="ods-Eb-DQW" customClass="AddItemTableViewCell" customModule="Smart_Grocery" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddItemTableViewCell" rowHeight="44" id="ods-Eb-DQW" customClass="AddItemTableViewCell" customModule="Smart_Grocery" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ods-Eb-DQW" id="FKk-SX-cJs">
@@ -112,7 +226,7 @@
                                             <rect key="frame" x="20" y="11.5" width="374" height="21"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                         </textField>
                                     </subviews>
                                     <constraints>
@@ -151,7 +265,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pTH-Gc-IwJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bSH-rW-qlk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2914" y="651"/>
+            <point key="canvasLocation" x="5665" y="858"/>
         </scene>
         <!--Details Table View Controller-->
         <scene sceneID="Nes-6w-7xl">
@@ -233,15 +347,13 @@
                                     <constraints>
                                         <constraint firstItem="AMY-Vr-GLw" firstAttribute="centerY" secondItem="2km-8I-eKV" secondAttribute="centerY" id="23K-AR-lsO"/>
                                         <constraint firstItem="AMY-Vr-GLw" firstAttribute="trailing" secondItem="2km-8I-eKV" secondAttribute="trailingMargin" id="5Yl-zf-NG6"/>
-                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="leading" secondItem="dom-uL-4ca" secondAttribute="trailing" constant="85" id="I9N-rl-YkT"/>
                                         <constraint firstItem="AMY-Vr-GLw" firstAttribute="top" secondItem="2km-8I-eKV" secondAttribute="topMargin" constant="22.5" id="JZY-IC-YR3"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="AMY-Vr-GLw" secondAttribute="bottom" constant="23" id="NNe-hk-Pqx"/>
                                         <constraint firstItem="dom-uL-4ca" firstAttribute="top" secondItem="2km-8I-eKV" secondAttribute="topMargin" constant="22" id="NVf-5l-x7Z"/>
                                         <constraint firstItem="AMY-Vr-GLw" firstAttribute="trailing" secondItem="2km-8I-eKV" secondAttribute="trailingMargin" id="Pa9-lG-SFo"/>
                                         <constraint firstItem="dom-uL-4ca" firstAttribute="leading" secondItem="2km-8I-eKV" secondAttribute="leadingMargin" id="RYG-Ce-Glw"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="dom-uL-4ca" secondAttribute="bottom" constant="23" id="jPF-mf-1Hy"/>
-                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="leading" secondItem="dom-uL-4ca" secondAttribute="trailing" constant="85" id="jXj-sx-Oph"/>
-                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="baseline" secondItem="dom-uL-4ca" secondAttribute="baseline" id="waZ-lE-Y4b"/>
+                                        <constraint firstItem="AMY-Vr-GLw" firstAttribute="leading" relation="lessThanOrEqual" secondItem="dom-uL-4ca" secondAttribute="trailing" constant="85" id="jXj-sx-Oph"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -316,7 +428,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zmd-Od-zcK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1999" y="651"/>
+            <point key="canvasLocation" x="4723" y="858"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zBs-uT-xj5">
@@ -330,11 +442,52 @@
                     </tabBar>
                     <connections>
                         <segue destination="Sar-L9-JFS" kind="relationship" relationship="viewControllers" id="uLd-Tk-kHj"/>
+                        <segue destination="qEO-8U-IU6" kind="relationship" relationship="viewControllers" id="cDT-sc-Heo"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="beD-io-sbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-649.27536231884062" y="129.91071428571428"/>
+            <point key="canvasLocation" x="-720" y="130"/>
+        </scene>
+        <!--Lists-->
+        <scene sceneID="DVC-FG-TaB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qEO-8U-IU6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Lists" image="icons8-menu-60" id="Jvw-IH-Ojt"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="jxK-11-x3e">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Gsg-Ga-14G" kind="relationship" relationship="rootViewController" id="xsK-Bu-eb6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eo7-jh-Cg5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="261" y="1566"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4jF-lY-Klc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0P2-CI-D94" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OYh-Fd-fWh">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Z7u-om-xZg" kind="relationship" relationship="rootViewController" id="Qre-PD-RWz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RQr-Ab-UDg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2743" y="1566"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-menu-60" width="30" height="30"/>
+    </resources>
 </document>

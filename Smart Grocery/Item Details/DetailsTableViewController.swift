@@ -19,6 +19,7 @@ class DetailsTableViewController: UITableViewController {
     var category: String?
     var prices: [Double]?
     var locations: [Location]?
+    var barcode: String?
     var placesClient: GMSPlacesClient!
 
     override func viewDidLoad() {
