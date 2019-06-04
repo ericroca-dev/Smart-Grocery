@@ -27,6 +27,11 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     lazy var barcodeRequest: VNDetectBarcodesRequest = {
         return VNDetectBarcodesRequest(completionHandler: self.handleBarcodes)
     }()
+    
+    var storage: Storage?
+    var storageRef: StorageReference?
+    var db: Firestore?
+    var firebaseItems = [Item]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,18 +50,18 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         tableView.tableFooterView = UIView(frame: .zero)
 
         // Load any saved items
-        if let savedItems = loadItems() {
-            items += savedItems
-        }
+//        if let savedItems = loadItems() {
+//            items += savedItems
+//        }
         
         // Get a reference to the storage service using the default Firebase App
-        let storage = Storage.storage()
+        storage = Storage.storage()
         
         // Create a storage reference from our storage service
-        let storageRef = storage.reference()
+        storageRef = storage!.reference()
         
         // Firebase Cloud Firestore initialization
-        let db = Firestore.firestore()
+        db = Firestore.firestore()
         
         for item in items {
             // Add a new document with a generated ID
@@ -75,7 +80,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             }
             
             // Create a reference to the file you want to upload
-            let photoRef = storageRef.child("images/\(item.name).jpg")
+            let photoRef = storageRef!.child("images/\(item.name).jpg")
             
             var imageURL = String()
             
@@ -117,6 +122,9 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         }
     
         // loadSampleItems()
+        
+        // Load FCS items
+        loadItemsFromFirestore()
     }
     
     // MARK: - Table view data source
@@ -129,7 +137,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         if isFiltering() {
             return filteredItems.count
         } else {
-            return items.count
+            return firebaseItems.count
         }
     }
 
@@ -146,7 +154,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         if isFiltering() {
             item = filteredItems[indexPath.row]
         } else {
-            item = items[indexPath.row]
+            item = firebaseItems[indexPath.row]
         }
         
         cell.nameLabel.text = item.name
@@ -386,6 +394,62 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
 //
 //        items += [item1]
 //    }
+    
+    private func loadItemsFromFirestore() {
+        var objFetched = 0
+        db!.collection("products").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    
+                    // Create a reference to the file you want to download
+                    let photoRef = self.storageRef!.child("images/\(document.get("name") as! String).jpg")
+                    print("PhotoRef: \(photoRef)")
+                    photoRef.getData(maxSize: (30 * 1024 * 1024)) { (data, error) in
+                        if let _error = error{
+                            print(_error)
+                        } else {
+                            if let _data  = data {
+                                // Download image from Firebase Storage
+                                let image = UIImage(data: _data)
+                                
+                                // Get locations
+                                var locations = [Location]()
+                                let stringLocations = document.get("locations") as! [String]
+                                let sequence = stride(from: 0, to: stringLocations.count, by: 2)
+                                for index in sequence {
+                                    var location = Location(latitude: Double(stringLocations[index]) as! Double, longitude: Double(stringLocations[index + 1]) as! Double)
+                                    locations.append(location!)
+                                }
+                                
+                                // Get prices
+                                var prices = [Double]()
+                                let stringPrices = document.get("prices") as! [String]
+                                for price in stringPrices {
+                                    prices.append(Double(price) as! Double)
+                                }
+                                
+                                var item = Item(name: document.get("name") as! String, prices: prices, category: document.get("category") as! String, photo: image!, barcode: document.get("barcode") as! String, locations: locations)
+                                
+                                print("Item: \(item!.name)")
+                                self.firebaseItems.append(item!)
+                                
+                                self.tableView.reloadData()
+                                
+                                objFetched += 1
+                                
+                                if objFetched == self.firebaseItems.count {
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     private func handleBarcodes(request: VNRequest, error: Error?) {
         guard let observations = request.results as? [VNBarcodeObservation] else {
