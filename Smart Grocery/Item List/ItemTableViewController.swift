@@ -8,9 +8,10 @@
 
 import UIKit
 import Vision
+import FirebaseUI
 import Firebase
 
-class ItemTableViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ItemTableViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, FUIAuthDelegate {
     
     //MARK: Properties
     
@@ -19,6 +20,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     var barcodeValue: String?
     
     var barcodePhotoTaken: Bool?
+    var scanTaken: Bool?
     
     var filteredItems = [Item]()
     
@@ -36,8 +38,9 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initialize Edit button
-        navigationItem.leftBarButtonItem = editButtonItem
+        presentFirebaseUI()
+        
+        scanTaken = false
         
         // Search Controller setup
         searchController.searchResultsUpdater = self
@@ -50,9 +53,9 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         tableView.tableFooterView = UIView(frame: .zero)
 
         // Load any saved items
-//        if let savedItems = loadItems() {
-//            items += savedItems
-//        }
+        if let savedItems = loadItems() {
+            items += savedItems
+        }
         
         // Get a reference to the storage service using the default Firebase App
         storage = Storage.storage()
@@ -63,6 +66,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         // Firebase Cloud Firestore initialization
         db = Firestore.firestore()
         
+        /*
         for item in items {
             // Add a new document with a generated ID
             var ref: DocumentReference? = nil
@@ -120,11 +124,12 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
 //                }
 //            }
         }
+        */
     
         // loadSampleItems()
         
         // Load FCS items
-        loadItemsFromFirestore()
+        // loadItemsFromFirestore()
     }
     
     // MARK: - Table view data source
@@ -137,7 +142,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         if isFiltering() {
             return filteredItems.count
         } else {
-            return firebaseItems.count
+            return items.count
         }
     }
 
@@ -154,7 +159,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         if isFiltering() {
             item = filteredItems[indexPath.row]
         } else {
-            item = firebaseItems[indexPath.row]
+            item = items[indexPath.row]
         }
         
         cell.nameLabel.text = item.name
@@ -169,12 +174,15 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         return cell
     }
 
+    /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
+    */
 
+    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -186,7 +194,8 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-
+    */
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -211,6 +220,12 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - FirebaseUI
+    
+    func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
+        // Handle user returning from authenticating
+    }
     
     //MARK: Actions
     
@@ -245,6 +260,32 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         }
         
         saveItems()
+    }
+    
+    @IBAction func scanItem(_ sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+        
+        let alertController: UIAlertController
+        
+        if (!scanTaken!) {
+            alertController = UIAlertController(title: "Scan Barcode", message: "Take a close-up photo of the item's barcode.", preferredStyle: .alert)
+        } else {
+            alertController = UIAlertController(title: "No Barcode Found", message: "Try taking a closer or further photo of the barcode.", preferredStyle: .alert)
+        }
+        
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+        }
+        alertController.addAction(OKAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+            self.dismiss(animated: true)
+            self.scanTaken = false
+        }
+        alertController.addAction(cancelAction)
     }
     
     //MARK: Photo Taking
@@ -498,6 +539,20 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     
     func isFiltering() -> Bool {
         return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    private func presentFirebaseUI() {
+        if Auth.auth().currentUser == nil {
+            let authUI = FUIAuth.defaultAuthUI()
+            authUI?.delegate = self
+            let providers: [FUIAuthProvider] = [
+                FUIEmailAuth(),
+            ]
+            
+            authUI?.providers = providers
+            let authViewController = authUI!.authViewController()
+            self.present(authViewController, animated: true, completion: nil)
+        }
     }
 }
 
