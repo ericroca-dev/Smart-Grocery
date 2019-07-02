@@ -168,28 +168,43 @@ class DetailsTableViewController: UITableViewController {
         return true
     }
     */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case _ where indexPath.row > 1:
+            showGoogleMaps(index: indexPath.row)
+        default:
+            return
+        }
+    }
 
     //MARK: Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == "ShowDetailsMap" {
-            guard let detailsMapViewController = segue.destination as? DetailsMapViewController else {
-                fatalError("Unexpected destination: \(segue.destination).")
-            }
-            
-            guard let selectedItemCell = sender as? DetailsPriceTableViewCell else {
-                fatalError("Unexpected sender: \(sender).")
-            }
-            
-            guard let indexPath = tableView.indexPath(for: selectedItemCell) else {
-                fatalError("The selected cell is not being displayed by the table.")
-            }
-            
-            detailsMapViewController.latitude = locations![indexPath.row - 2].latitude
-            detailsMapViewController.longitude = locations![indexPath.row - 2].longitude
-        }
+//        if segue.identifier == "ShowDetailsMap" {
+//            guard let detailsMapViewController = segue.destination as? DetailsMapViewController else {
+//                fatalError("Unexpected destination: \(segue.destination).")
+//            }
+//
+//            guard let selectedItemCell = sender as? DetailsPriceTableViewCell else {
+//                fatalError("Unexpected sender: \(sender).")
+//            }
+//
+//            guard let indexPath = tableView.indexPath(for: selectedItemCell) else {
+//                fatalError("The selected cell is not being displayed by the table.")
+//            }
+//
+//            detailsMapViewController.latitude = locations![indexPath.row - 2].latitude
+//            detailsMapViewController.longitude = locations![indexPath.row - 2].longitude
+//        }
     }
-
+    
+    //MARK: Private methods
+    
+    func showGoogleMaps(index: Int) {
+        UIApplication.shared.openURL(URL(string:"comgooglemaps://?saddr=&daddr=\(locations![index - 2].latitude),\(locations![index - 2].longitude)")!)
+    }
+    
 }
