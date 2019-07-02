@@ -421,6 +421,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             detailsTableViewController.prices = selectedItem.prices
             detailsTableViewController.locations = selectedItem.locations
             detailsTableViewController.barcode = selectedItem.barcode
+            detailsTableViewController.items = self.items
         }
     }
 

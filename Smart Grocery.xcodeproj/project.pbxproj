@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0F288622CB98AB00A68CDA /* AddPriceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */; };
 		8A14E57F2294A3E600DEA96E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */; };
 		8A14E5822295125800DEA96E /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14E5812295125800DEA96E /* ListTableViewController.swift */; };
 		8A14E584229512AD00DEA96E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14E583229512AD00DEA96E /* ListTableViewCell.swift */; };
@@ -18,6 +19,8 @@
 		8A685BFF225A8D560058D454 /* AddItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A685BFE225A8D560058D454 /* AddItemTableViewController.swift */; };
 		8A733CEA2269AD57004BAC5F /* DetailsPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A733CE92269AD57004BAC5F /* DetailsPhotoTableViewCell.swift */; };
 		8A733CEC2269AD9F004BAC5F /* DetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A733CEB2269AD9F004BAC5F /* DetailsTableViewController.swift */; };
+		8A93F29922CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A93F29822CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift */; };
+		8A93F29B22CB970400AEF1D5 /* AddPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A93F29A22CB970400AEF1D5 /* AddPriceTableViewCell.swift */; };
 		8AB032F02291B66100F1D0B9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB032EF2291B66100F1D0B9 /* Location.swift */; };
 		8AB8DBE22291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8DBE12291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift */; };
 		8AB8DBE42291F520009271B5 /* DetailsPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8DBE32291F520009271B5 /* DetailsPriceTableViewCell.swift */; };
@@ -45,6 +48,7 @@
 /* Begin PBXFileReference section */
 		2C871A301A248C81C0111472 /* Pods_Smart_Grocery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Smart_Grocery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C8538EDF63679848A7403C6 /* Pods-Smart Grocery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Grocery.debug.xcconfig"; path = "Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery.debug.xcconfig"; sourceTree = "<group>"; };
+		8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceTableViewController.swift; sourceTree = "<group>"; };
 		8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A14E5812295125800DEA96E /* ListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		8A14E583229512AD00DEA96E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -58,6 +62,8 @@
 		8A685BFE225A8D560058D454 /* AddItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemTableViewController.swift; sourceTree = "<group>"; };
 		8A733CE92269AD57004BAC5F /* DetailsPhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		8A733CEB2269AD9F004BAC5F /* DetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewController.swift; sourceTree = "<group>"; };
+		8A93F29822CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsStoresTableViewCell.swift; sourceTree = "<group>"; };
+		8A93F29A22CB970400AEF1D5 /* AddPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceTableViewCell.swift; sourceTree = "<group>"; };
 		8AB032EF2291B66100F1D0B9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		8AB8DBE12291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCategoryLabelTableViewCell.swift; sourceTree = "<group>"; };
 		8AB8DBE32291F520009271B5 /* DetailsPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPriceTableViewCell.swift; sourceTree = "<group>"; };
@@ -159,6 +165,9 @@
 				8A733CE92269AD57004BAC5F /* DetailsPhotoTableViewCell.swift */,
 				8AB8DBE12291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift */,
 				8AB8DBE32291F520009271B5 /* DetailsPriceTableViewCell.swift */,
+				8A93F29822CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift */,
+				8A93F29A22CB970400AEF1D5 /* AddPriceTableViewCell.swift */,
+				8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */,
 			);
 			path = "Item Details";
 			sourceTree = "<group>";
@@ -364,10 +373,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A93F29B22CB970400AEF1D5 /* AddPriceTableViewCell.swift in Sources */,
 				8A733CEC2269AD9F004BAC5F /* DetailsTableViewController.swift in Sources */,
 				8A685BFF225A8D560058D454 /* AddItemTableViewController.swift in Sources */,
 				8AC4BE66225A4C0C000F3DC3 /* ItemTableViewController.swift in Sources */,
 				8AB8DBE42291F520009271B5 /* DetailsPriceTableViewCell.swift in Sources */,
+				8A0F288622CB98AB00A68CDA /* AddPriceTableViewController.swift in Sources */,
 				8AEB7F5D22A2A4060064DA92 /* AddListTableViewCell.swift in Sources */,
 				8A14E5822295125800DEA96E /* ListTableViewController.swift in Sources */,
 				8AC4BE64225A4969000F3DC3 /* ItemTableViewCell.swift in Sources */,
@@ -378,6 +389,7 @@
 				8AC4BE45225A335E000F3DC3 /* Item.swift in Sources */,
 				8AEB7F5922A28FBE0064DA92 /* ListsTableViewCell.swift in Sources */,
 				8A733CEA2269AD57004BAC5F /* DetailsPhotoTableViewCell.swift in Sources */,
+				8A93F29922CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift in Sources */,
 				8AB032F02291B66100F1D0B9 /* Location.swift in Sources */,
 				8A6364FB22579BAA000EBCC3 /* AppDelegate.swift in Sources */,
 				8AEB7F5B22A291460064DA92 /* ListsTableViewController.swift in Sources */,

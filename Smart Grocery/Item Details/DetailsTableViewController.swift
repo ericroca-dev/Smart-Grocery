@@ -10,9 +10,11 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 
-class DetailsTableViewController: UITableViewController {
+class DetailsTableViewController: UITableViewController, CLLocationManagerDelegate {
     
     //MARK: Properties
+    
+    var items = [Item]()
     
     var name: String?
     var image: UIImage?
@@ -21,6 +23,9 @@ class DetailsTableViewController: UITableViewController {
     var locations: [Location]?
     var barcode: String?
     var placesClient: GMSPlacesClient!
+    
+    var locationManager: CLLocationManager?
+    var location: Location?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +45,30 @@ class DetailsTableViewController: UITableViewController {
         
         // Disable separator inset
         tableView.separatorColor = UIColor.clear
+        
+        locationManager = CLLocationManager()
+        locationManager!.requestAlwaysAuthorization()
+        
+        // Location
+        let status = CLLocationManager.authorizationStatus()
+        
+        switch (status) {
+        case .notDetermined:
+            locationManager!.requestWhenInUseAuthorization()
+            return
+        case .denied, .restricted:
+            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+            return
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
+        
+        locationManager!.delegate = self
+        locationManager!.startUpdatingLocation()
     }
 
     // MARK: - Table view data source
@@ -49,7 +78,7 @@ class DetailsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2 + prices!.count
+        return 3 + prices!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,6 +106,16 @@ class DetailsTableViewController: UITableViewController {
             cell.selectionStyle = .none
             
             return cell
+        } else if indexPath.row == 2 {
+            let cellIdentifier = "DetailsStoresTableViewCell"
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailsStoresTableViewCell else {
+                fatalError("The dequeued cell is not an instance of DetailsStoresTableViewCell.")
+            }
+            
+            // Disable graying when tapping
+            cell.selectionStyle = .none
+            
+            return cell
         } else {
             let cellIdentifier = "DetailsPriceTableViewCell"
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailsPriceTableViewCell else {
@@ -84,7 +123,7 @@ class DetailsTableViewController: UITableViewController {
             }
             
             let geocoder = GMSGeocoder()
-            let coordinate = CLLocationCoordinate2DMake(locations![indexPath.row - 2].latitude, locations![indexPath.row - 2].longitude)
+            let coordinate = CLLocationCoordinate2DMake(locations![indexPath.row - 3].latitude, locations![indexPath.row - 3].longitude)
             
             var currentAddress = String()
             
@@ -100,6 +139,14 @@ class DetailsTableViewController: UITableViewController {
                                 print("GEOCODE: Formatted Address: \(lines)")
                             }
                             
+                            if let sublocality = place.subLocality {
+                                print("GEOCODE: Formatted Sublocality: \(sublocality)")
+                            }
+                            
+                            if let thoroughfare = place.thoroughfare {
+                                print("GEOCODE: Formatted Thoroughfare: \(thoroughfare)")
+                            }
+                            
                             currentAddress = (place.lines?.joined(separator: "\n"))!
                             print("Current address: \(currentAddress)")
                             cell.locationLabel.text = currentAddress.components(separatedBy: ",")[0]
@@ -112,7 +159,7 @@ class DetailsTableViewController: UITableViewController {
                 }
             }
             
-            cell.priceLabel.text = String(format: "%.2f", prices![indexPath.row - 2]) + " RON"
+            cell.priceLabel.text = String(format: "%.2f", prices![indexPath.row - 3]) + " RON"
             
             print("Current address split: \(currentAddress.components(separatedBy: ",")[0])")
             
@@ -127,7 +174,7 @@ class DetailsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.row == 0) {
             return 414.0
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1 || indexPath.row == 2) {
             return 44.0
         } else {
             return 88.0
@@ -171,7 +218,7 @@ class DetailsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case _ where indexPath.row > 1:
+        case _ where indexPath.row > 2:
             showGoogleMaps(index: indexPath.row)
         default:
             return
@@ -201,10 +248,50 @@ class DetailsTableViewController: UITableViewController {
 //        }
     }
     
+    //MARK: Actions
+    
+    // Add list to table after user input
+    @IBAction func unwindToDetailsTable(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? AddPriceTableViewController, let price = sourceViewController.price {
+            if let index = items.firstIndex(where: {$0.name == name}) {
+                items[index].prices.append(price)
+                items[index].locations.append(location!)
+                
+                prices?.append(price)
+                locations?.append(location!)
+                
+                saveItems()
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    //MARK: Location Manager
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let currentLocation = locations.last {
+            print("Current location: \(currentLocation)")
+            location = Location(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
     //MARK: Private methods
     
     func showGoogleMaps(index: Int) {
-        UIApplication.shared.openURL(URL(string:"comgooglemaps://?saddr=&daddr=\(locations![index - 2].latitude),\(locations![index - 2].longitude)")!)
+        UIApplication.shared.openURL(URL(string:"comgooglemaps://?saddr=&daddr=\(locations![index - 3].latitude),\(locations![index - 3].longitude)")!)
+    }
+    
+    private func saveItems() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(items, toFile: Item.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            print("Items successfully saved.")
+        } else {
+            fatalError("Failed to save items.")
+        }
     }
     
 }
