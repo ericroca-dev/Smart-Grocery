@@ -13,6 +13,7 @@ class ListsTableViewController: UITableViewController {
     //MARK: Properties
     
     var lists = [String]()
+    var items = [Item]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,8 @@ class ListsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            // Load list items
+            clearItems(index: indexPath.row)
             lists.remove(at: indexPath.row)
             saveLists()
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -149,6 +152,16 @@ class ListsTableViewController: UITableViewController {
     
     private func loadLists() -> [String]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ListsArchiveURL.path) as? [String]
+    }
+    
+    private func clearItems(index: Int) {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject([], toFile: Item.ListArchiveURL.appendingPathComponent(lists[index]).path)
+        
+        if isSuccessfulSave {
+            print("Items successfully cleared.")
+        } else {
+            fatalError("Failed to clear items.")
+        }
     }
     
 }
