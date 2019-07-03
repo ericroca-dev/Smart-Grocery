@@ -13,6 +13,7 @@ class ListTableViewController: UITableViewController {
     //MARK: Properties
     
     var listName: String?
+    var items = [Item]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,11 @@ class ListTableViewController: UITableViewController {
         // Eliminate empty rows
         tableView.tableFooterView = UIView(frame: .zero)
         
-        print(listName)
+        // Load any saved items
+        if let savedItems = loadItems() {
+            items += savedItems
+        }
+        
         self.title = listName
     }
 
@@ -37,18 +42,26 @@ class ListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return items.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cellIdentifier = "ListTableViewCell"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ListTableViewCell else {
+            fatalError("The dequeued cell is not an instance of ListTableViewCell.")
+        }
+        
+        let item = items[indexPath.row]
+        
+        cell.nameLabel.text = item.name
+        cell.photoImageView.image = item.photo
+        
+        // Make labels dynamically change width based on text length
+        // Must be applied after text change
+        cell.nameLabel.sizeToFit()
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -94,5 +107,21 @@ class ListTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //MARK: Private methods
+    
+    private func saveItems() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(items, toFile: Item.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            print("Items successfully saved.")
+        } else {
+            fatalError("Failed to save items.")
+        }
+    }
+    
+    private func loadItems() -> [Item]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ListArchiveURL.appendingPathComponent(self.listName!).path) as? [Item]
+    }
 
 }
