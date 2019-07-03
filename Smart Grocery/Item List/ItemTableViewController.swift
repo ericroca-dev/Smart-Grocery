@@ -37,7 +37,6 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     var storage: Storage?
     var storageRef: StorageReference?
     var db: Firestore?
-    var firebaseItems = [Item]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,9 +133,29 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         */
     
         // loadSampleItems()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         // Load FCS items
-//        loadItemsFromFirestore()
+        loadItemsFromFirestore()
+        
+        // 1
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self.items, toFile: Item.ArchiveURL.path)
+            
+            if isSuccessfulSave {
+                print("Items successfully saved.")
+            } else {
+                fatalError("Failed to save items.")
+            }
+        }
+        
+        tableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -265,7 +284,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             let newIndexPath = IndexPath(row: items.count, section: 0)
             items.append(item)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
-            
+            saveToFirestore(item: item)
             barcodePhotoTaken = nil
             scanPhotoTaken = false
             barcodeValue = nil
@@ -530,49 +549,132 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
                 for document in querySnapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
                     
-                    // Create a reference to the file you want to download
-                    let photoRef = self.storageRef!.child("images/\(document.get("name") as! String).jpg")
-                    print("PhotoRef: \(photoRef)")
-                    photoRef.getData(maxSize: (30 * 1024 * 1024)) { (data, error) in
-                        if let _error = error{
-                            print(_error)
-                        } else {
-                            if let _data  = data {
-                                // Download image from Firebase Storage
-                                let image = UIImage(data: _data)
-                                
-                                // Get locations
-                                var locations = [Location]()
-                                let stringLocations = document.get("locations") as! [String]
-                                let sequence = stride(from: 0, to: stringLocations.count, by: 2)
-                                for index in sequence {
-                                    var location = Location(latitude: Double(stringLocations[index]) as! Double, longitude: Double(stringLocations[index + 1]) as! Double)
-                                    locations.append(location!)
-                                }
-                                
-                                // Get prices
-                                var prices = [Double]()
-                                let stringPrices = document.get("prices") as! [String]
-                                for price in stringPrices {
-                                    prices.append(Double(price) as! Double)
-                                }
-                                
-                                var item = Item(name: document.get("name") as! String, prices: prices, category: document.get("category") as! String, photo: image!, barcode: document.get("barcode") as! String, locations: locations)
-                                
-                                print("Item: \(item!.name)")
-                                self.firebaseItems.append(item!)
-                                self.items.append(item!)
-                                self.saveItems()
-                                
-                                self.tableView.reloadData()
-                                
-                                objFetched += 1
-                                
-                                if objFetched == self.firebaseItems.count {
+                    let checkedItem = self.items.first(where: {$0.name == document.get("name") as! String})
+                    
+                    // Check prices
+                    var checkedPrices = [Double]()
+                    let stringCheckedPrices = document.get("prices") as! [String]
+                    for checkedPrice in stringCheckedPrices {
+                        checkedPrices.append(Double(checkedPrice) as! Double)
+                    }
+                    
+                    // Check locations
+                    var checkedLocations = [Location]()
+                    let stringCheckedLocations = document.get("locations") as! [String]
+                    let sequence = stride(from: 0, to: stringCheckedLocations.count, by: 2)
+                    for index in sequence {
+                        var location = Location(latitude: Double(stringCheckedLocations[index]) as! Double, longitude: Double(stringCheckedLocations[index + 1]) as! Double)
+                        checkedLocations.append(location!)
+                    }
+                    
+                    let checkedLocationItem = self.items.first(where: {$0.locations == checkedLocations})
+
+                    if checkedItem == nil {
+                        // Create a reference to the file you want to download
+                        let photoRef = self.storageRef!.child("images/\(document.get("name") as! String).jpg")
+                        print("PhotoRef: \(photoRef)")
+                        photoRef.getData(maxSize: (30 * 1024 * 1024)) { (data, error) in
+                            if let _error = error{
+                                print(_error)
+                            } else {
+                                if let _data  = data {
+                                    // Download image from Firebase Storage
+                                    let image = UIImage(data: _data)
+                                    print("Image downloaded")
+                                    
+                                    // Get locations
+                                    var locations = [Location]()
+                                    let stringLocations = document.get("locations") as! [String]
+                                    let sequence = stride(from: 0, to: stringLocations.count, by: 2)
+                                    for index in sequence {
+                                        var location = Location(latitude: Double(stringLocations[index]) as! Double, longitude: Double(stringLocations[index + 1]) as! Double)
+                                        locations.append(location!)
+                                    }
+                                    
+                                    // Get prices
+                                    var prices = [Double]()
+                                    let stringPrices = document.get("prices") as! [String]
+                                    for price in stringPrices {
+                                        prices.append(Double(price) as! Double)
+                                    }
+                                    
+                                    var item = Item(name: document.get("name") as! String, prices: prices, category: document.get("category") as! String, photo: image!, barcode: document.get("barcode") as! String, locations: locations)
+                                    
+                                    print("Item: \(item!.name)")
+                                    self.items.append(item!)
+                                    
                                     self.tableView.reloadData()
+                                    
+                                    objFetched += 1
+                                    
+                                    if objFetched == self.items.count {
+                                        self.tableView.reloadData()
+                                    }
                                 }
                             }
                         }
+                    } else if checkedItem != checkedLocationItem {
+                        let index = self.items.firstIndex(of: checkedItem!)
+                        self.items[index!].prices = checkedPrices
+                        self.items[index!].locations = checkedLocations
+                    }
+                }
+            }
+        }
+    }
+    
+    private func saveToFirestore(item: Item) {
+        // Add a new document with a generated ID
+        var ref: DocumentReference? = nil
+        
+        // Convert prices to String
+        var stringPrices: [String] = [String]()
+        for price in item.prices {
+            stringPrices.append(String(price))
+        }
+        
+        // Convert locations to String
+        var stringLocations: [[String]] = [[String]]()
+        for location in item.locations {
+            stringLocations.append([String(location.latitude), String(location.longitude)])
+        }
+        
+        // Create a reference to the file you want to upload
+        let photoRef = self.storageRef!.child("images/\(item.name).jpg")
+        
+        var imageURL = String()
+        
+        // Upload the file to the path
+        let uploadTask = photoRef.putData(item.photo.pngData()!, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type.
+            let size = metadata.size
+            // You can also access to download URL after upload.
+            photoRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                imageURL = downloadURL.absoluteString
+                
+                // Build document data
+                let documentData: [String: Any] = [
+                    "name": item.name,
+                    "prices": stringPrices,
+                    "category": item.category,
+                    "image": imageURL,
+                    "barcode": item.barcode,
+                    "locations": [String(item.locations[0].latitude), String(item.locations[0].longitude)]
+                ]
+                
+                ref = self.db!.collection("products").addDocument(data: documentData) { err in
+                    if let err = err {
+                        print("Error adding document: \(err)")
+                    } else {
+                        print("Document added with ID: \(ref!.documentID)")
                     }
                 }
             }

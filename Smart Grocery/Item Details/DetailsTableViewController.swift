@@ -9,6 +9,7 @@
 import UIKit
 import GooglePlaces
 import GoogleMaps
+import Firebase
 
 class DetailsTableViewController: UITableViewController, CLLocationManagerDelegate {
     
@@ -28,6 +29,8 @@ class DetailsTableViewController: UITableViewController, CLLocationManagerDelega
     var location: Location?
     
     var item: Item?
+    
+    var db: Firestore?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +74,9 @@ class DetailsTableViewController: UITableViewController, CLLocationManagerDelega
         
         locationManager!.delegate = self
         locationManager!.startUpdatingLocation()
+        
+        // Firebase Cloud Firestore initialization
+        db = Firestore.firestore()
     }
 
     // MARK: - Table view data source
@@ -270,6 +276,7 @@ class DetailsTableViewController: UITableViewController, CLLocationManagerDelega
                 prices?.append(price)
                 locations?.append(location!)
                 
+                updateFirestore(item: item!)
                 saveItems()
                 tableView.reloadData()
             }
@@ -301,6 +308,33 @@ class DetailsTableViewController: UITableViewController, CLLocationManagerDelega
             print("Items successfully saved.")
         } else {
             fatalError("Failed to save items.")
+        }
+    }
+    
+    private func updateFirestore(item: Item) {
+        db!.collection("products").whereField("name", isEqualTo: item.name).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                // Convert prices to String
+                var stringPrices: [String] = [String]()
+                for price in item.prices {
+                    stringPrices.append(String(price))
+                }
+                
+                // Convert locations to String
+                var stringLocations: [String] = [String]()
+                for location in item.locations {
+                    stringLocations.append(String(location.latitude))
+                    stringLocations.append(String(location.longitude))
+                }
+                
+                let document = querySnapshot!.documents.first
+                document!.reference.updateData([
+                    "prices": stringPrices,
+                    "locations": stringLocations
+                    ])
+            }
         }
     }
     
