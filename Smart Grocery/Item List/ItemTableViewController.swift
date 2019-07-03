@@ -264,6 +264,9 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             let newIndexPath = IndexPath(row: items.count, section: 0)
             items.append(item)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+            barcodePhotoTaken = nil
+            scanPhotoTaken = false
         }
         
         saveItems()
@@ -399,6 +402,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
                 } else {
                     self.performSegue(withIdentifier: "AddItem", sender: self)
                     self.barcodeValue = nil
+                    self.barcodePhotoTaken = nil
                 }
             })
         }
