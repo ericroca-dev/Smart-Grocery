@@ -264,6 +264,7 @@
                                 <connections>
                                     <outlet property="nameLabel" destination="vlA-vG-Jo8" id="Iru-hm-6cC"/>
                                     <outlet property="photoImageView" destination="vDi-fR-dL1" id="j3L-mk-rWC"/>
+                                    <segue destination="8f2-wr-VT1" kind="show" identifier="ShowListDetails" id="z3U-bg-wdD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -705,6 +706,6 @@
         <image name="icons8-menu-60" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0Fb-A5-wW7"/>
+        <segue reference="z3U-bg-wdD"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -98,15 +98,36 @@ class ListTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //MARK: Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "ShowListDetails" {
+            guard let detailsTableViewController = segue.destination as? DetailsTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination).")
+            }
+            
+            guard let selectedItemCell = sender as? ListTableViewCell else {
+                fatalError("Unexpected sender: \(sender).")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedItemCell) else {
+                fatalError("The selected cell is not being displayed by the table.")
+            }
+            
+            let selectedItem = items[indexPath.row]
+            
+            detailsTableViewController.name = selectedItem.name
+            detailsTableViewController.image = selectedItem.photo
+            detailsTableViewController.category = selectedItem.category
+            detailsTableViewController.prices = selectedItem.prices
+            detailsTableViewController.locations = selectedItem.locations
+            detailsTableViewController.barcode = selectedItem.barcode
+            detailsTableViewController.items = self.items
+            detailsTableViewController.item = selectedItem
+        }
     }
-    */
     
     //MARK: Private methods
     
