@@ -9,6 +9,10 @@
 import UIKit
 
 class ListTableViewController: UITableViewController {
+    
+    //MARK: Properties
+    
+    var listName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,17 +22,21 @@ class ListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // Eliminate empty rows
+        tableView.tableFooterView = UIView(frame: .zero)
+        
+        print(listName)
+        self.title = listName
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 0
     }
 

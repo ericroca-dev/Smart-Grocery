@@ -26,6 +26,8 @@ class DetailsTableViewController: UITableViewController, CLLocationManagerDelega
     
     var locationManager: CLLocationManager?
     var location: Location?
+    
+    var item: Item?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -246,11 +248,19 @@ class DetailsTableViewController: UITableViewController, CLLocationManagerDelega
 //            detailsMapViewController.latitude = locations![indexPath.row - 2].latitude
 //            detailsMapViewController.longitude = locations![indexPath.row - 2].longitude
 //        }
+        
+        if segue.identifier == "DetailsLists" {
+            guard let detailsListsTableViewController = segue.destination as? DetailsListsTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination).")
+            }
+            
+            detailsListsTableViewController.item = item
+        }
     }
     
     //MARK: Actions
     
-    // Add list to table after user input
+    // Add price to table after user input
     @IBAction func unwindToDetailsTable(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? AddPriceTableViewController, let price = sourceViewController.price {
             if let index = items.firstIndex(where: {$0.name == name}) {

@@ -22,6 +22,10 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     var barcodePhotoTaken: Bool?
     var scanTaken: Bool?
     
+    var scanItem: Bool?
+    var scanPhotoTaken: Bool?
+    var scanCompleted: Bool?
+    
     var filteredItems = [Item]()
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -41,6 +45,9 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         presentFirebaseUI()
         
         scanTaken = false
+        scanItem = false
+        scanPhotoTaken = false
+        scanCompleted = false
         
         // Search Controller setup
         searchController.searchResultsUpdater = self
@@ -262,7 +269,11 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         saveItems()
     }
     
-    @IBAction func scanItem(_ sender: UIBarButtonItem) {
+    //MARK: Photo Taking
+    
+    func takeScan() {
+        scanItem = true;
+        
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
         imagePicker.allowsEditing = true
@@ -271,7 +282,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         
         let alertController: UIAlertController
         
-        if (!scanTaken!) {
+        if (!scanPhotoTaken!) {
             alertController = UIAlertController(title: "Scan Barcode", message: "Take a close-up photo of the item's barcode.", preferredStyle: .alert)
         } else {
             alertController = UIAlertController(title: "No Barcode Found", message: "Try taking a closer or further photo of the barcode.", preferredStyle: .alert)
@@ -283,12 +294,15 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
             self.dismiss(animated: true)
-            self.scanTaken = false
+            self.scanPhotoTaken = false
+            self.scanItem = false
+            self.barcodeValue = nil
+            self.scanCompleted = false
         }
         alertController.addAction(cancelAction)
+        
+        imagePicker.present(alertController, animated: true, completion: nil)
     }
-    
-    //MARK: Photo Taking
     
     func takeBarcodePhoto() {
         let imagePicker = UIImagePickerController()
@@ -312,11 +326,13 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
             self.dismiss(animated: true)
             self.barcodePhotoTaken = nil
+            self.barcodeValue = nil
         }
         alertController.addAction(cancelAction)
         
         imagePicker.present(alertController, animated: true, completion: nil)
     }
+    
     
     // Use image after taking photo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -328,40 +344,64 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             fatalError("Can't create CIImage from UIImage.")
         }
         
-        // Only save item image
-        if (self.barcodePhotoTaken == nil) {
-            image = pickerImage
-        }
-        
-        // Run the rectangle detector, which upon completion runs the ML classifier
-        let handler = VNImageRequestHandler(ciImage: ciImage, options: [.properties: ""])
-        DispatchQueue.global(qos: .userInteractive).async {
-            do {
-                try handler.perform([self.barcodeRequest])
-            } catch {
-                print(error)
+        if scanItem == true {
+            // Run the rectangle detector, which upon completion runs the ML classifier
+            let handler = VNImageRequestHandler(ciImage: ciImage, options: [.properties: ""])
+            DispatchQueue.global(qos: .userInteractive).async {
+                do {
+                    try handler.perform([self.barcodeRequest])
+                } catch {
+                    print(error)
+                }
             }
-        }
-        
-        picker.dismiss(animated: true, completion: {
             
-            // On first pass, result will be false
-            // On second pass, result will be true
-            // Next passes will not change the result
+            picker.dismiss(animated: true, completion: {
+                if self.barcodeValue == nil {
+                    self.scanPhotoTaken = true
+                    self.self.takeScan()
+                } else {
+                    self.scanCompleted = true
+                    self.performSegue(withIdentifier: "ShowScanDetails", sender: self)
+                }
+            })
+        } else {
+            
+            // Only save item image
             if (self.barcodePhotoTaken == nil) {
-                self.barcodePhotoTaken = false
-            } else if (self.barcodePhotoTaken == false) {
-                self.barcodePhotoTaken = true
+                image = pickerImage
             }
             
-            // Barcode photo will only be taken once; if it was not taken
-            // Or until a barcode is found
-            if (!self.barcodePhotoTaken! || self.barcodeValue == nil) {
-                self.self.takeBarcodePhoto()
-            } else {
-                self.performSegue(withIdentifier: "AddItem", sender: self)
+            // Run the rectangle detector, which upon completion runs the ML classifier
+            let handler = VNImageRequestHandler(ciImage: ciImage, options: [.properties: ""])
+            DispatchQueue.global(qos: .userInteractive).async {
+                do {
+                    try handler.perform([self.barcodeRequest])
+                } catch {
+                    print(error)
+                }
             }
-        })
+            
+            picker.dismiss(animated: true, completion: {
+                
+                // On first pass, result will be false
+                // On second pass, result will be true
+                // Next passes will not change the result
+                if (self.barcodePhotoTaken == nil) {
+                    self.barcodePhotoTaken = false
+                } else if (self.barcodePhotoTaken == false) {
+                    self.barcodePhotoTaken = true
+                }
+                
+                // Barcode photo will only be taken once; if it was not taken
+                // Or until a barcode is found
+                if (!self.barcodePhotoTaken! || self.barcodeValue == nil) {
+                    self.self.takeBarcodePhoto()
+                } else {
+                    self.performSegue(withIdentifier: "AddItem", sender: self)
+                    self.barcodeValue = nil
+                }
+            })
+        }
         
         
 //        picker.dismiss(animated: true, completion: {
@@ -422,6 +462,31 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             detailsTableViewController.locations = selectedItem.locations
             detailsTableViewController.barcode = selectedItem.barcode
             detailsTableViewController.items = self.items
+            detailsTableViewController.item = selectedItem
+        } else if segue.identifier == "ShowScanDetails" {
+            if !scanCompleted! {
+                scanPhotoTaken = false
+                takeScan()
+            } else {
+                scanPhotoTaken = false
+                scanCompleted = false
+            }
+            
+            let selectedItem = items.first(where: {$0.barcode == barcodeValue})
+            barcodeValue = nil
+            
+            guard let detailsTableViewController = segue.destination as? DetailsTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination).")
+            }
+            
+            detailsTableViewController.name = selectedItem?.name
+            detailsTableViewController.image = selectedItem?.photo
+            detailsTableViewController.category = selectedItem?.category
+            detailsTableViewController.prices = selectedItem?.prices
+            detailsTableViewController.locations = selectedItem?.locations
+            detailsTableViewController.barcode = selectedItem?.barcode
+            detailsTableViewController.items = self.items
+            detailsTableViewController.item = selectedItem
         }
     }
 

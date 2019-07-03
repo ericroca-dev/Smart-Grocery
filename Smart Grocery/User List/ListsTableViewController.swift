@@ -97,15 +97,29 @@ class ListsTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "ViewList" {
+            guard let listTableViewController = segue.destination as? ListTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination).")
+            }
+            
+            guard let selectedListCell = sender as? ListsTableViewCell else {
+                fatalError("Unexpected sender: \(sender).")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedListCell) else {
+                fatalError("The selected cell is not being displayed by the table.")
+            }
+            
+            let selectedList = lists[indexPath.row]
+            
+            listTableViewController.listName = selectedList
+        }
     }
-    */
 
     //MARK: Actions
     

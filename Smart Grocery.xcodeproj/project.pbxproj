@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8A0F288622CB98AB00A68CDA /* AddPriceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */; };
+		8A0F288822CC92B900A68CDA /* DetailsListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F288722CC92B900A68CDA /* DetailsListsTableViewController.swift */; };
+		8A0F288A22CC954E00A68CDA /* DetailsListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F288922CC954E00A68CDA /* DetailsListsTableViewCell.swift */; };
 		8A14E57F2294A3E600DEA96E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */; };
 		8A14E5822295125800DEA96E /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14E5812295125800DEA96E /* ListTableViewController.swift */; };
 		8A14E584229512AD00DEA96E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14E583229512AD00DEA96E /* ListTableViewCell.swift */; };
@@ -49,6 +51,8 @@
 		2C871A301A248C81C0111472 /* Pods_Smart_Grocery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Smart_Grocery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C8538EDF63679848A7403C6 /* Pods-Smart Grocery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Grocery.debug.xcconfig"; path = "Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery.debug.xcconfig"; sourceTree = "<group>"; };
 		8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceTableViewController.swift; sourceTree = "<group>"; };
+		8A0F288722CC92B900A68CDA /* DetailsListsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsListsTableViewController.swift; sourceTree = "<group>"; };
+		8A0F288922CC954E00A68CDA /* DetailsListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsListsTableViewCell.swift; sourceTree = "<group>"; };
 		8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A14E5812295125800DEA96E /* ListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		8A14E583229512AD00DEA96E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 				8A93F29822CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift */,
 				8A93F29A22CB970400AEF1D5 /* AddPriceTableViewCell.swift */,
 				8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */,
+				8A0F288722CC92B900A68CDA /* DetailsListsTableViewController.swift */,
+				8A0F288922CC954E00A68CDA /* DetailsListsTableViewCell.swift */,
 			);
 			path = "Item Details";
 			sourceTree = "<group>";
@@ -377,9 +383,11 @@
 				8A733CEC2269AD9F004BAC5F /* DetailsTableViewController.swift in Sources */,
 				8A685BFF225A8D560058D454 /* AddItemTableViewController.swift in Sources */,
 				8AC4BE66225A4C0C000F3DC3 /* ItemTableViewController.swift in Sources */,
+				8A0F288822CC92B900A68CDA /* DetailsListsTableViewController.swift in Sources */,
 				8AB8DBE42291F520009271B5 /* DetailsPriceTableViewCell.swift in Sources */,
 				8A0F288622CB98AB00A68CDA /* AddPriceTableViewController.swift in Sources */,
 				8AEB7F5D22A2A4060064DA92 /* AddListTableViewCell.swift in Sources */,
+				8A0F288A22CC954E00A68CDA /* DetailsListsTableViewCell.swift in Sources */,
 				8A14E5822295125800DEA96E /* ListTableViewController.swift in Sources */,
 				8AC4BE64225A4969000F3DC3 /* ItemTableViewCell.swift in Sources */,
 				8AEB7F5F22A2A47F0064DA92 /* AddListTableViewController.swift in Sources */,
