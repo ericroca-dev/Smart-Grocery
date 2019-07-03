@@ -29,10 +29,10 @@ class ListsTableViewController: UITableViewController {
         // Eliminate empty rows
         tableView.tableFooterView = UIView(frame: .zero)
         
-        lists.append("Lunch")
-        lists.append("Workout")
-        lists.append("Snack")
-        lists.append("Weekly")
+        // Load any saved lists
+        if let savedLists = loadLists() {
+            lists += savedLists
+        }
     }
 
     // MARK: - Table view data source
@@ -76,6 +76,7 @@ class ListsTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             lists.remove(at: indexPath.row)
+            saveLists()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -129,8 +130,25 @@ class ListsTableViewController: UITableViewController {
             
             let newIndexPath = IndexPath(row: lists.count, section: 0)
             lists.append(name)
+            saveLists()
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
+    }
+    
+    //MARK: Private methods
+    
+    private func saveLists() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(lists, toFile: Item.ListsArchiveURL.path)
+        
+        if isSuccessfulSave {
+            print("Lists successfully saved.")
+        } else {
+            fatalError("Failed to save lists.")
+        }
+    }
+    
+    private func loadLists() -> [String]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ListsArchiveURL.path) as? [String]
     }
     
 }

@@ -136,7 +136,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         // loadSampleItems()
         
         // Load FCS items
-        // loadItemsFromFirestore()
+//        loadItemsFromFirestore()
     }
     
     // MARK: - Table view data source
@@ -542,6 +542,8 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
                                 
                                 print("Item: \(item!.name)")
                                 self.firebaseItems.append(item!)
+                                self.items.append(item!)
+                                self.saveItems()
                                 
                                 self.tableView.reloadData()
                                 
