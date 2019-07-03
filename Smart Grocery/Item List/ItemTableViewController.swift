@@ -250,6 +250,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
         alertController.addAction(OKAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+            self.barcodeValue = nil
             self.dismiss(animated: true)
         }
         alertController.addAction(cancelAction)
@@ -267,6 +268,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             
             barcodePhotoTaken = nil
             scanPhotoTaken = false
+            barcodeValue = nil
         }
         
         saveItems()
@@ -401,8 +403,6 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
                     self.self.takeBarcodePhoto()
                 } else {
                     self.performSegue(withIdentifier: "AddItem", sender: self)
-                    self.barcodeValue = nil
-                    self.barcodePhotoTaken = nil
                 }
             })
         }
@@ -435,6 +435,8 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
                 if let addItemTableViewController = navigationController.topViewController as? AddItemTableViewController {
                     addItemTableViewController.image = image
                     addItemTableViewController.barcode = barcodeValue
+                    barcodeValue = nil
+                    barcodePhotoTaken = nil
                 }
             }
         } else if segue.identifier == "ShowDetails" {
@@ -476,21 +478,34 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
                 scanCompleted = false
             }
             
-            let selectedItem = items.first(where: {$0.barcode == barcodeValue})
+            let selectedItem: Item?
+            selectedItem = items.first(where: {$0.barcode == barcodeValue})
             barcodeValue = nil
             
-            guard let detailsTableViewController = segue.destination as? DetailsTableViewController else {
-                fatalError("Unexpected destination: \(segue.destination).")
+            if selectedItem == nil {
+                let alertController: UIAlertController
+                
+                alertController = UIAlertController(title: "No Product Found", message: "No such product exists in the database.", preferredStyle: .alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                }
+                alertController.addAction(OKAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                guard let detailsTableViewController = segue.destination as? DetailsTableViewController else {
+                    fatalError("Unexpected destination: \(segue.destination).")
+                }
+                
+                detailsTableViewController.name = selectedItem?.name
+                detailsTableViewController.image = selectedItem?.photo
+                detailsTableViewController.category = selectedItem?.category
+                detailsTableViewController.prices = selectedItem?.prices
+                detailsTableViewController.locations = selectedItem?.locations
+                detailsTableViewController.barcode = selectedItem?.barcode
+                detailsTableViewController.items = self.items
+                detailsTableViewController.item = selectedItem
             }
-            
-            detailsTableViewController.name = selectedItem?.name
-            detailsTableViewController.image = selectedItem?.photo
-            detailsTableViewController.category = selectedItem?.category
-            detailsTableViewController.prices = selectedItem?.prices
-            detailsTableViewController.locations = selectedItem?.locations
-            detailsTableViewController.barcode = selectedItem?.barcode
-            detailsTableViewController.items = self.items
-            detailsTableViewController.item = selectedItem
         }
     }
 
