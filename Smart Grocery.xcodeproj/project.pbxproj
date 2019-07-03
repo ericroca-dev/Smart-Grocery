@@ -26,6 +26,8 @@
 		8AB032F02291B66100F1D0B9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB032EF2291B66100F1D0B9 /* Location.swift */; };
 		8AB8DBE22291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8DBE12291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift */; };
 		8AB8DBE42291F520009271B5 /* DetailsPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8DBE32291F520009271B5 /* DetailsPriceTableViewCell.swift */; };
+		8ABD0E8922CD2A1A007AAEEB /* RenameListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABD0E8822CD2A1A007AAEEB /* RenameListTableViewCell.swift */; };
+		8ABD0E8B22CD2ABE007AAEEB /* RenameListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABD0E8A22CD2ABE007AAEEB /* RenameListTableViewController.swift */; };
 		8AC4BE45225A335E000F3DC3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE44225A335E000F3DC3 /* Item.swift */; };
 		8AC4BE5C225A380E000F3DC3 /* Smart_Grocery_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE5B225A380E000F3DC3 /* Smart_Grocery_Tests.swift */; };
 		8AC4BE64225A4969000F3DC3 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE63225A4969000F3DC3 /* ItemTableViewCell.swift */; };
@@ -71,6 +73,8 @@
 		8AB032EF2291B66100F1D0B9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		8AB8DBE12291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCategoryLabelTableViewCell.swift; sourceTree = "<group>"; };
 		8AB8DBE32291F520009271B5 /* DetailsPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPriceTableViewCell.swift; sourceTree = "<group>"; };
+		8ABD0E8822CD2A1A007AAEEB /* RenameListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameListTableViewCell.swift; sourceTree = "<group>"; };
+		8ABD0E8A22CD2ABE007AAEEB /* RenameListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameListTableViewController.swift; sourceTree = "<group>"; };
 		8AC4BE44225A335E000F3DC3 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		8AC4BE59225A380E000F3DC3 /* Smart Grocery Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart Grocery Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC4BE5B225A380E000F3DC3 /* Smart_Grocery_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Smart_Grocery_Tests.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 				8AEB7F5A22A291460064DA92 /* ListsTableViewController.swift */,
 				8AEB7F5C22A2A4060064DA92 /* AddListTableViewCell.swift */,
 				8AEB7F5E22A2A47F0064DA92 /* AddListTableViewController.swift */,
+				8ABD0E8822CD2A1A007AAEEB /* RenameListTableViewCell.swift */,
+				8ABD0E8A22CD2ABE007AAEEB /* RenameListTableViewController.swift */,
 			);
 			path = "User List";
 			sourceTree = "<group>";
@@ -380,6 +386,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A93F29B22CB970400AEF1D5 /* AddPriceTableViewCell.swift in Sources */,
+				8ABD0E8B22CD2ABE007AAEEB /* RenameListTableViewController.swift in Sources */,
+				8ABD0E8922CD2A1A007AAEEB /* RenameListTableViewCell.swift in Sources */,
 				8A733CEC2269AD9F004BAC5F /* DetailsTableViewController.swift in Sources */,
 				8A685BFF225A8D560058D454 /* AddItemTableViewController.swift in Sources */,
 				8AC4BE66225A4C0C000F3DC3 /* ItemTableViewController.swift in Sources */,

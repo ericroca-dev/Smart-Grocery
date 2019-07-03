@@ -29,11 +29,16 @@ class ListsTableViewController: UITableViewController {
         
         // Eliminate empty rows
         tableView.tableFooterView = UIView(frame: .zero)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         // Load any saved lists
         if let savedLists = loadLists() {
-            lists += savedLists
+            lists = savedLists
         }
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source

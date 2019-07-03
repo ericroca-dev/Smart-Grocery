@@ -14,6 +14,7 @@ class ListTableViewController: UITableViewController {
     
     var listName: String?
     var items = [Item]()
+    var lists = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,6 +128,21 @@ class ListTableViewController: UITableViewController {
         }
     }
     
+    // Rename list after user input
+    @IBAction func unwindToList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? RenameListTableViewController, let name = sourceViewController.name {
+            lists = loadLists()!
+            let index = lists.firstIndex(where: {$0 == listName})
+            clearItems(index: index!)
+            
+            self.title = name
+            listName = name
+            lists[index!] = name
+            saveLists()
+            saveItems()
+        }
+    }
+    
     //MARK: Private methods
     
     private func saveItems() {
@@ -141,6 +157,30 @@ class ListTableViewController: UITableViewController {
     
     private func loadItems() -> [Item]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ListArchiveURL.appendingPathComponent(self.listName!).path) as? [Item]
+    }
+    
+    private func saveLists() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(lists, toFile: Item.ListsArchiveURL.path)
+        
+        if isSuccessfulSave {
+            print("Lists successfully saved.")
+        } else {
+            fatalError("Failed to save lists.")
+        }
+    }
+    
+    private func loadLists() -> [String]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ListsArchiveURL.path) as? [String]
+    }
+    
+    private func clearItems(index: Int) {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject([], toFile: Item.ListArchiveURL.appendingPathComponent(lists[index]).path)
+        
+        if isSuccessfulSave {
+            print("Items successfully cleared.")
+        } else {
+            fatalError("Failed to clear items.")
+        }
     }
 
 }
