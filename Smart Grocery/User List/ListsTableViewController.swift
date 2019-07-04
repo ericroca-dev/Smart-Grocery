@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import UserNotifications
+import CoreLocation
 
-class ListsTableViewController: UITableViewController {
+class ListsTableViewController: UITableViewController, UNUserNotificationCenterDelegate, CLLocationManagerDelegate {
 
     //MARK: Properties
     
     var lists = [String]()
     var items = [Item]()
+    var allItems = [Item]()
+    
+    var locationManager: CLLocationManager?
+    var location: Location?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +35,56 @@ class ListsTableViewController: UITableViewController {
         
         // Eliminate empty rows
         tableView.tableFooterView = UIView(frame: .zero)
+        
+        locationManager = CLLocationManager()
+        locationManager!.requestAlwaysAuthorization()
+        
+        // Location
+        let status = CLLocationManager.authorizationStatus()
+        
+        switch (status) {
+        case .notDetermined:
+            locationManager!.requestWhenInUseAuthorization()
+            return
+        case .denied, .restricted:
+            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+            return
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
+        
+        locationManager!.delegate = self
+        locationManager!.startUpdatingLocation()
+        
+        // Load any saved lists
+        if let savedLists = loadLists() {
+            lists = savedLists
+        }
+        
+        loadAllItems()
+        
+        // Requesting for authorization
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
+            
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewWillAppear(animated)
         
         // Load any saved lists
         if let savedLists = loadLists() {
             lists = savedLists
         }
         tableView.reloadData()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.sendNotifications()
+        })
     }
 
     // MARK: - Table view data source
@@ -143,6 +189,26 @@ class ListsTableViewController: UITableViewController {
         }
     }
     
+    //MARK: Location Manager
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let currentLocation = locations.last {
+            print("Current location: \(currentLocation)")
+            location = Location(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    //MARK: Notifications
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        //displaying the ios local notification when app is in foreground
+        completionHandler([.alert, .badge, .sound])
+    }
+    
     //MARK: Private methods
     
     private func saveLists() {
@@ -159,6 +225,13 @@ class ListsTableViewController: UITableViewController {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Item.ListsArchiveURL.path) as? [String]
     }
     
+    private func loadAllItems() {
+        for list in lists {
+            let returnedList = (NSKeyedUnarchiver.unarchiveObject(withFile: Item.ListArchiveURL.appendingPathComponent(list).path) as? [Item]) ?? []
+            allItems += returnedList
+        }
+    }
+    
     private func clearItems(index: Int) {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject([], toFile: Item.ListArchiveURL.appendingPathComponent(lists[index]).path)
         
@@ -166,6 +239,40 @@ class ListsTableViewController: UITableViewController {
             print("Items successfully cleared.")
         } else {
             fatalError("Failed to clear items.")
+        }
+    }
+    
+    private func sendNotifications() {
+        var notificationsSent = 0
+        for item in allItems {
+            for shopLocation in item.locations {
+                let itemLocation = CLLocation(latitude: shopLocation.latitude, longitude: shopLocation.longitude)
+                let currentLocation = CLLocation(latitude: location!.latitude, longitude: location!.longitude)
+                let distance = currentLocation.distance(from: itemLocation)
+                if distance <= 500 {
+                    // Creating the notification content
+                    let content = UNMutableNotificationContent()
+                    
+                    // Adding title, subtitle, body and badge
+                    content.title = "Nearby Product"
+                    content.body = "\(item.name) is near you!"
+                    content.badge = notificationsSent + 1 as NSNumber
+                    notificationsSent = notificationsSent + 1
+                    
+                    // Getting the notification trigger
+                    // Ot will be called after 5 seconds
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                    
+                    // Getting the notification request
+                    let request = UNNotificationRequest(identifier: "ProductIOSNotification\(notificationsSent)", content: content, trigger: trigger)
+                    
+                    UNUserNotificationCenter.current().delegate = self
+                    
+                    // Adding the notification to notification center
+                    UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                    print("sent")
+                }
+            }
         }
     }
     

@@ -138,6 +138,8 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        presentFirebaseUI()
+        
         // Load FCS items
         loadItemsFromFirestore()
         

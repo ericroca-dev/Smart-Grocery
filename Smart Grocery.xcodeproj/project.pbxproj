@@ -13,6 +13,10 @@
 		8A14E57F2294A3E600DEA96E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */; };
 		8A14E5822295125800DEA96E /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14E5812295125800DEA96E /* ListTableViewController.swift */; };
 		8A14E584229512AD00DEA96E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14E583229512AD00DEA96E /* ListTableViewCell.swift */; };
+		8A3808F122CD6E590089BEAF /* RecommendationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3808F022CD6E590089BEAF /* RecommendationsTableViewCell.swift */; };
+		8A3808F422CD6EC10089BEAF /* RecommendationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3808F322CD6EC10089BEAF /* RecommendationsTableViewController.swift */; };
+		8A3808F622CD72570089BEAF /* RecommendationItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3808F522CD72570089BEAF /* RecommendationItemsTableViewCell.swift */; };
+		8A3808F822CD74730089BEAF /* RecommendationsItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3808F722CD74730089BEAF /* RecommendationsItemsTableViewController.swift */; };
 		8A6364FB22579BAA000EBCC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6364FA22579BAA000EBCC3 /* AppDelegate.swift */; };
 		8A63650022579BAA000EBCC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6364FE22579BAA000EBCC3 /* Main.storyboard */; };
 		8A63650222579BAC000EBCC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A63650122579BAC000EBCC3 /* Assets.xcassets */; };
@@ -58,6 +62,10 @@
 		8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8A14E5812295125800DEA96E /* ListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		8A14E583229512AD00DEA96E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		8A3808F022CD6E590089BEAF /* RecommendationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsTableViewCell.swift; sourceTree = "<group>"; };
+		8A3808F322CD6EC10089BEAF /* RecommendationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsTableViewController.swift; sourceTree = "<group>"; };
+		8A3808F522CD72570089BEAF /* RecommendationItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationItemsTableViewCell.swift; sourceTree = "<group>"; };
+		8A3808F722CD74730089BEAF /* RecommendationsItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsItemsTableViewController.swift; sourceTree = "<group>"; };
 		8A6364F722579BAA000EBCC3 /* Smart Grocery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart Grocery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6364FA22579BAA000EBCC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A6364FF22579BAA000EBCC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -131,6 +139,17 @@
 			path = "User List";
 			sourceTree = "<group>";
 		};
+		8A3808EF22CD6CF10089BEAF /* Recommendations */ = {
+			isa = PBXGroup;
+			children = (
+				8A3808F022CD6E590089BEAF /* RecommendationsTableViewCell.swift */,
+				8A3808F322CD6EC10089BEAF /* RecommendationsTableViewController.swift */,
+				8A3808F522CD72570089BEAF /* RecommendationItemsTableViewCell.swift */,
+				8A3808F722CD74730089BEAF /* RecommendationsItemsTableViewController.swift */,
+			);
+			path = Recommendations;
+			sourceTree = "<group>";
+		};
 		8A6364EE22579BAA000EBCC3 = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +173,7 @@
 		8A6364F922579BAA000EBCC3 /* Smart Grocery */ = {
 			isa = PBXGroup;
 			children = (
+				8A3808EF22CD6CF10089BEAF /* Recommendations */,
 				8A14E5802295123C00DEA96E /* User List */,
 				8AB8DBE02291EB19009271B5 /* Item Details */,
 				8AC4BE67225A4C23000F3DC3 /* Item List */,
@@ -385,17 +405,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A3808F122CD6E590089BEAF /* RecommendationsTableViewCell.swift in Sources */,
 				8A93F29B22CB970400AEF1D5 /* AddPriceTableViewCell.swift in Sources */,
 				8ABD0E8B22CD2ABE007AAEEB /* RenameListTableViewController.swift in Sources */,
 				8ABD0E8922CD2A1A007AAEEB /* RenameListTableViewCell.swift in Sources */,
 				8A733CEC2269AD9F004BAC5F /* DetailsTableViewController.swift in Sources */,
 				8A685BFF225A8D560058D454 /* AddItemTableViewController.swift in Sources */,
+				8A3808F422CD6EC10089BEAF /* RecommendationsTableViewController.swift in Sources */,
 				8AC4BE66225A4C0C000F3DC3 /* ItemTableViewController.swift in Sources */,
 				8A0F288822CC92B900A68CDA /* DetailsListsTableViewController.swift in Sources */,
 				8AB8DBE42291F520009271B5 /* DetailsPriceTableViewCell.swift in Sources */,
 				8A0F288622CB98AB00A68CDA /* AddPriceTableViewController.swift in Sources */,
 				8AEB7F5D22A2A4060064DA92 /* AddListTableViewCell.swift in Sources */,
 				8A0F288A22CC954E00A68CDA /* DetailsListsTableViewCell.swift in Sources */,
+				8A3808F822CD74730089BEAF /* RecommendationsItemsTableViewController.swift in Sources */,
 				8A14E5822295125800DEA96E /* ListTableViewController.swift in Sources */,
 				8AC4BE64225A4969000F3DC3 /* ItemTableViewCell.swift in Sources */,
 				8AEB7F5F22A2A47F0064DA92 /* AddListTableViewController.swift in Sources */,
@@ -403,6 +426,7 @@
 				8A685BFD225A88A00058D454 /* AddItemTableViewCell.swift in Sources */,
 				8AB8DBE22291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift in Sources */,
 				8AC4BE45225A335E000F3DC3 /* Item.swift in Sources */,
+				8A3808F622CD72570089BEAF /* RecommendationItemsTableViewCell.swift in Sources */,
 				8AEB7F5922A28FBE0064DA92 /* ListsTableViewCell.swift in Sources */,
 				8A733CEA2269AD57004BAC5F /* DetailsPhotoTableViewCell.swift in Sources */,
 				8A93F29922CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift in Sources */,
