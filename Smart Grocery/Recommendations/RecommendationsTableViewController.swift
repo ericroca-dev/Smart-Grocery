@@ -126,7 +126,7 @@ class RecommendationsTableViewController: UITableViewController, FUIAuthDelegate
     //MARK: Private methods
     private func loadCategories() {
         let nearCategory = "Near You"
-        let typeCategory = "From the Same Category"
+        let typeCategory = "Priced Lower"
         
         categories += [nearCategory, typeCategory]
     }
@@ -137,6 +137,7 @@ class RecommendationsTableViewController: UITableViewController, FUIAuthDelegate
             authUI?.delegate = self
             let providers: [FUIAuthProvider] = [
                 FUIEmailAuth(),
+                FUIAnonymousAuth(),
             ]
             
             authUI?.providers = providers

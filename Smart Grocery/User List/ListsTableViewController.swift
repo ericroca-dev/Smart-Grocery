@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import CoreLocation
+import Firebase
 
 class ListsTableViewController: UITableViewController, UNUserNotificationCenterDelegate, CLLocationManagerDelegate {
 
@@ -173,6 +174,26 @@ class ListsTableViewController: UITableViewController, UNUserNotificationCenterD
             let selectedList = lists[indexPath.row]
             
             listTableViewController.listName = selectedList
+        } else if segue.identifier == "AddList" {
+            
+            
+            // Get through Navigation Controller before accessing view
+            if let navigationController = segue.destination as? UINavigationController {
+                if let addListTableViewController = navigationController.topViewController as? AddListTableViewController {
+                    if Auth.auth().currentUser != nil {
+                        if (Auth.auth().currentUser!.isAnonymous) {
+                            if lists.count >= 1 {
+                                let alertController = UIAlertController(title: "Log In", message: "You need to be logged in to add another list.", preferredStyle: .alert)
+                                
+                                let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                                }
+                                alertController.addAction(OKAction)
+                                self.present(alertController, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -243,7 +264,9 @@ class ListsTableViewController: UITableViewController, UNUserNotificationCenterD
     }
     
     private func sendNotifications() {
-        var notificationsSent = 0
+        var notificationsSent = 10
+        allItems = []
+        loadAllItems()
         for item in allItems {
             for shopLocation in item.locations {
                 let itemLocation = CLLocation(latitude: shopLocation.latitude, longitude: shopLocation.longitude)

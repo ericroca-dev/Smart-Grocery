@@ -140,7 +140,7 @@
                     <navigationItem key="navigationItem" title="Lists" id="nfp-17-5Yl">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="lvf-tT-Agq">
                             <connections>
-                                <segue destination="0P2-CI-D94" kind="presentation" id="GBP-j2-guW"/>
+                                <segue destination="0P2-CI-D94" kind="presentation" identifier="AddList" id="GBP-j2-guW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -421,7 +421,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Add Price"/>
                                             <connections>
-                                                <segue destination="6ur-eN-cXf" kind="presentation" id="YDn-26-ch4"/>
+                                                <segue destination="6ur-eN-cXf" kind="presentation" identifier="AddPrice" id="YDn-26-ch4"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -930,6 +930,6 @@
         <image name="icons8-menu-60" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qf4-5c-dyl"/>
+        <segue reference="0Fb-A5-wW7"/>
     </inferredMetricsTieBreakers>
 </document>

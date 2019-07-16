@@ -18,11 +18,11 @@ class Smart_Grocery_Tests: XCTestCase {
         let testPhoto = UIImage(named: "testImage")
         
         // Zero price
-        let zeroPriceItem = Item.init(name: "Zero", price: 0.0, category: "Zero", photo: testPhoto!, barcode: "0")
+        let zeroPriceItem = Item.init(name: "Zero", prices: [0.0], category: "Zero", photo: testPhoto!, barcode: "0", locations: [Location.init(0.0, 0.0)])
         XCTAssertNotNil(zeroPriceItem)
         
         // Positive price
-        let positivePriceItem = Item.init(name: "Positive", price: 10.0, category: "Positive", photo: testPhoto!, barcode: "0")
+        let positivePriceItem = Item.init(name: "Positive", prices: [10.0], category: "Positive", photo: testPhoto!, barcode: "0", locations: [Location.init(0.0, 0.0)])
         XCTAssertNotNil(positivePriceItem)
     }
     
@@ -32,19 +32,19 @@ class Smart_Grocery_Tests: XCTestCase {
         let testPhoto = UIImage(named: "testImage")
         
         // Empty name
-        let emptyNameItem = Item.init(name: "", price: 0.0, category: "Empty", photo: testPhoto!, barcode: "0")
+        let emptyNameItem = Item.init(name: "", prices: [0.0], category: "Empty", photo: testPhoto!, barcode: "0", locations: [Location.init(0.0, 0.0)])
         XCTAssertNil(emptyNameItem)
         
         // Negative price
-        let negativePriceItem = Item.init(name: "Negative", price: -1.0, category: "Negative", photo: testPhoto!, barcode: "0")
+        let negativePriceItem = Item.init(name: "Negative", prices: [-1.0], category: "Negative", photo: testPhoto!, barcode: "0", locations: [Location.init(0.0, 0.0)])
         XCTAssertNil(negativePriceItem)
         
         // Empty category
-        let emptyCategoryItem = Item.init(name: "Empty", price: 0.0, category: "", photo: testPhoto!, barcode: "0")
+        let emptyCategoryItem = Item.init(name: "Empty", prices: [0.0], category: "", photo: testPhoto!, barcode: "0", locations: [Location.init(0.0, 0.0)])
         XCTAssertNil(emptyCategoryItem)
         
         // Empty barcode
-        let emptyBarcodeItem = Item.init(name: "Empty", price: 0.0, category: "Empty", photo: testPhoto!, barcode: "")
+        let emptyBarcodeItem = Item.init(name: "Empty", prices: [0.0], category: "Empty", photo: testPhoto!, barcode: "", locations: [Location.init(0.0, 0.0)])
         XCTAssertNil(emptyBarcodeItem)
     }
 }

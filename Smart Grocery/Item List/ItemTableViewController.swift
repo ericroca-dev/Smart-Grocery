@@ -258,25 +258,36 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
     //MARK: Actions
     
     @IBAction func takeItemPhoto(_ sender: UIBarButtonItem) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = true
-        imagePicker.delegate = self
-        self.present(imagePicker, animated: true)
-        
-        let alertController = UIAlertController(title: "Take Photo", message: "Take a photo of the item you want to add.", preferredStyle: .alert)
-        
-        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+        if Auth.auth().currentUser != nil {
+            if (Auth.auth().currentUser!.isAnonymous) {
+                let alertController = UIAlertController(title: "Log In", message: "You need to be logged in to add items.", preferredStyle: .alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                }
+                alertController.addAction(OKAction)
+                self.present(alertController, animated: true)
+            } else {
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .camera
+                imagePicker.allowsEditing = true
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true)
+                
+                let alertController = UIAlertController(title: "Take Photo", message: "Take a photo of the item you want to add.", preferredStyle: .alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                }
+                alertController.addAction(OKAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+                    self.barcodeValue = nil
+                    self.dismiss(animated: true)
+                }
+                alertController.addAction(cancelAction)
+                
+                imagePicker.present(alertController, animated: true, completion: nil)
+            }
         }
-        alertController.addAction(OKAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
-            self.barcodeValue = nil
-            self.dismiss(animated: true)
-        }
-        alertController.addAction(cancelAction)
-
-        imagePicker.present(alertController, animated: true, completion: nil)
     }
     
     // Add item to table after user input
@@ -738,6 +749,7 @@ class ItemTableViewController: UITableViewController, UINavigationControllerDele
             authUI?.delegate = self
             let providers: [FUIAuthProvider] = [
                 FUIEmailAuth(),
+                FUIAnonymousAuth(),
             ]
             
             authUI?.providers = providers

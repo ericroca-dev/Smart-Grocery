@@ -261,6 +261,23 @@ class DetailsTableViewController: UITableViewController, CLLocationManagerDelega
             }
             
             detailsListsTableViewController.item = item
+        } else if segue.identifier == "AddPrice" {
+            
+            // Get through Navigation Controller before accessing view
+            if let navigationController = segue.destination as? UINavigationController {
+                if let addPriceTableViewController = navigationController.topViewController as? AddPriceTableViewController {
+                    if Auth.auth().currentUser != nil {
+                        if (Auth.auth().currentUser!.isAnonymous) {
+                            let alertController = UIAlertController(title: "Log In", message: "You need to be logged in to add prices.", preferredStyle: .alert)
+                            
+                            let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                            }
+                            alertController.addAction(OKAction)
+                            self.present(alertController, animated: true)
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -297,7 +314,7 @@ class DetailsTableViewController: UITableViewController, CLLocationManagerDelega
     
     //MARK: Private methods
     
-    func showGoogleMaps(index: Int) {
+    private func showGoogleMaps(index: Int) {
         UIApplication.shared.openURL(URL(string:"comgooglemaps://?saddr=&daddr=\(locations![index - 3].latitude),\(locations![index - 3].longitude)")!)
     }
     

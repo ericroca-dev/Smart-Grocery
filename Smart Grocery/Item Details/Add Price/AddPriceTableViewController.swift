@@ -176,6 +176,11 @@ class AddPriceTableViewController: UITableViewController, UITextFieldDelegate {
         
         let priceString = priceCell.textField.text ?? ""
         
-        doneButton.isEnabled = !priceString.isEmpty
+        // String to Double conversion does not work with comma
+        let correctedPriceString = priceString.replacingOccurrences(of: ",", with: ".")
+        
+        let value = Double(correctedPriceString)
+        
+        doneButton.isEnabled = !priceString.isEmpty && (value != nil)
     }
 }
