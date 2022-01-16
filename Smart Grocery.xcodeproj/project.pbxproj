@@ -3,10 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0F288622CB98AB00A68CDA /* AddPriceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */; };
+		8A0F288822CC92B900A68CDA /* DetailsListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F288722CC92B900A68CDA /* DetailsListsTableViewController.swift */; };
+		8A0F288A22CC954E00A68CDA /* DetailsListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F288922CC954E00A68CDA /* DetailsListsTableViewCell.swift */; };
+		8A14E57F2294A3E600DEA96E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */; };
+		8A14E5822295125800DEA96E /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14E5812295125800DEA96E /* ListTableViewController.swift */; };
+		8A14E584229512AD00DEA96E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14E583229512AD00DEA96E /* ListTableViewCell.swift */; };
+		8A3808F122CD6E590089BEAF /* RecommendationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3808F022CD6E590089BEAF /* RecommendationsTableViewCell.swift */; };
+		8A3808F422CD6EC10089BEAF /* RecommendationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3808F322CD6EC10089BEAF /* RecommendationsTableViewController.swift */; };
+		8A3808F622CD72570089BEAF /* RecommendationItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3808F522CD72570089BEAF /* RecommendationItemsTableViewCell.swift */; };
+		8A3808F822CD74730089BEAF /* RecommendationsItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3808F722CD74730089BEAF /* RecommendationsItemsTableViewController.swift */; };
 		8A6364FB22579BAA000EBCC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6364FA22579BAA000EBCC3 /* AppDelegate.swift */; };
 		8A63650022579BAA000EBCC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6364FE22579BAA000EBCC3 /* Main.storyboard */; };
 		8A63650222579BAC000EBCC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A63650122579BAC000EBCC3 /* Assets.xcassets */; };
@@ -15,13 +25,22 @@
 		8A685BFF225A8D560058D454 /* AddItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A685BFE225A8D560058D454 /* AddItemTableViewController.swift */; };
 		8A733CEA2269AD57004BAC5F /* DetailsPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A733CE92269AD57004BAC5F /* DetailsPhotoTableViewCell.swift */; };
 		8A733CEC2269AD9F004BAC5F /* DetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A733CEB2269AD9F004BAC5F /* DetailsTableViewController.swift */; };
+		8A93F29922CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A93F29822CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift */; };
+		8A93F29B22CB970400AEF1D5 /* AddPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A93F29A22CB970400AEF1D5 /* AddPriceTableViewCell.swift */; };
 		8AB032F02291B66100F1D0B9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB032EF2291B66100F1D0B9 /* Location.swift */; };
 		8AB8DBE22291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8DBE12291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift */; };
 		8AB8DBE42291F520009271B5 /* DetailsPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8DBE32291F520009271B5 /* DetailsPriceTableViewCell.swift */; };
+		8ABD0E8922CD2A1A007AAEEB /* RenameListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABD0E8822CD2A1A007AAEEB /* RenameListTableViewCell.swift */; };
+		8ABD0E8B22CD2ABE007AAEEB /* RenameListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABD0E8A22CD2ABE007AAEEB /* RenameListTableViewController.swift */; };
 		8AC4BE45225A335E000F3DC3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE44225A335E000F3DC3 /* Item.swift */; };
 		8AC4BE5C225A380E000F3DC3 /* Smart_Grocery_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE5B225A380E000F3DC3 /* Smart_Grocery_Tests.swift */; };
 		8AC4BE64225A4969000F3DC3 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE63225A4969000F3DC3 /* ItemTableViewCell.swift */; };
 		8AC4BE66225A4C0C000F3DC3 /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4BE65225A4C0C000F3DC3 /* ItemTableViewController.swift */; };
+		8AEB7F5922A28FBE0064DA92 /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEB7F5822A28FBE0064DA92 /* ListsTableViewCell.swift */; };
+		8AEB7F5B22A291460064DA92 /* ListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEB7F5A22A291460064DA92 /* ListsTableViewController.swift */; };
+		8AEB7F5D22A2A4060064DA92 /* AddListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEB7F5C22A2A4060064DA92 /* AddListTableViewCell.swift */; };
+		8AEB7F5F22A2A47F0064DA92 /* AddListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEB7F5E22A2A47F0064DA92 /* AddListTableViewController.swift */; };
+		AB2709C697EF7F51153990C6 /* Pods_Smart_Grocery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C871A301A248C81C0111472 /* Pods_Smart_Grocery.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +54,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C871A301A248C81C0111472 /* Pods_Smart_Grocery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Smart_Grocery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C8538EDF63679848A7403C6 /* Pods-Smart Grocery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Grocery.debug.xcconfig"; path = "Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery.debug.xcconfig"; sourceTree = "<group>"; };
+		8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceTableViewController.swift; sourceTree = "<group>"; };
+		8A0F288722CC92B900A68CDA /* DetailsListsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsListsTableViewController.swift; sourceTree = "<group>"; };
+		8A0F288922CC954E00A68CDA /* DetailsListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsListsTableViewCell.swift; sourceTree = "<group>"; };
+		8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8A14E5812295125800DEA96E /* ListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
+		8A14E583229512AD00DEA96E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		8A3808F022CD6E590089BEAF /* RecommendationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsTableViewCell.swift; sourceTree = "<group>"; };
+		8A3808F322CD6EC10089BEAF /* RecommendationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsTableViewController.swift; sourceTree = "<group>"; };
+		8A3808F522CD72570089BEAF /* RecommendationItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationItemsTableViewCell.swift; sourceTree = "<group>"; };
+		8A3808F722CD74730089BEAF /* RecommendationsItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsItemsTableViewController.swift; sourceTree = "<group>"; };
 		8A6364F722579BAA000EBCC3 /* Smart Grocery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart Grocery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6364FA22579BAA000EBCC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A6364FF22579BAA000EBCC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -45,15 +76,24 @@
 		8A685BFE225A8D560058D454 /* AddItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemTableViewController.swift; sourceTree = "<group>"; };
 		8A733CE92269AD57004BAC5F /* DetailsPhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		8A733CEB2269AD9F004BAC5F /* DetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewController.swift; sourceTree = "<group>"; };
+		8A93F29822CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsStoresTableViewCell.swift; sourceTree = "<group>"; };
+		8A93F29A22CB970400AEF1D5 /* AddPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceTableViewCell.swift; sourceTree = "<group>"; };
 		8AB032EF2291B66100F1D0B9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		8AB8DBE12291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCategoryLabelTableViewCell.swift; sourceTree = "<group>"; };
 		8AB8DBE32291F520009271B5 /* DetailsPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPriceTableViewCell.swift; sourceTree = "<group>"; };
+		8ABD0E8822CD2A1A007AAEEB /* RenameListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameListTableViewCell.swift; sourceTree = "<group>"; };
+		8ABD0E8A22CD2ABE007AAEEB /* RenameListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameListTableViewController.swift; sourceTree = "<group>"; };
 		8AC4BE44225A335E000F3DC3 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		8AC4BE59225A380E000F3DC3 /* Smart Grocery Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart Grocery Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC4BE5B225A380E000F3DC3 /* Smart_Grocery_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Smart_Grocery_Tests.swift; sourceTree = "<group>"; };
 		8AC4BE5D225A380E000F3DC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AC4BE63225A4969000F3DC3 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		8AC4BE65225A4C0C000F3DC3 /* ItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
+		8AEB7F5822A28FBE0064DA92 /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
+		8AEB7F5A22A291460064DA92 /* ListsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewController.swift; sourceTree = "<group>"; };
+		8AEB7F5C22A2A4060064DA92 /* AddListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListTableViewCell.swift; sourceTree = "<group>"; };
+		8AEB7F5E22A2A47F0064DA92 /* AddListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListTableViewController.swift; sourceTree = "<group>"; };
+		C8D236D0094912B3064228DF /* Pods-Smart Grocery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Grocery.release.xcconfig"; path = "Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB2709C697EF7F51153990C6 /* Pods_Smart_Grocery.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +115,108 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B63BC47CE561F6F05543339 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6C8538EDF63679848A7403C6 /* Pods-Smart Grocery.debug.xcconfig */,
+				C8D236D0094912B3064228DF /* Pods-Smart Grocery.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8A14E5802295123C00DEA96E /* User List */ = {
+			isa = PBXGroup;
+			children = (
+				8A3808FF22CD952B0089BEAF /* List Items */,
+				8A3808FE22CD95100089BEAF /* Rename List */,
+				8A3808FD22CD94FB0089BEAF /* Add List */,
+				8AEB7F5822A28FBE0064DA92 /* ListsTableViewCell.swift */,
+				8AEB7F5A22A291460064DA92 /* ListsTableViewController.swift */,
+			);
+			path = "User List";
+			sourceTree = "<group>";
+		};
+		8A3808EF22CD6CF10089BEAF /* Recommendations */ = {
+			isa = PBXGroup;
+			children = (
+				8A38090022CD953A0089BEAF /* Location Recommendations */,
+				8A3808F022CD6E590089BEAF /* RecommendationsTableViewCell.swift */,
+				8A3808F322CD6EC10089BEAF /* RecommendationsTableViewController.swift */,
+			);
+			path = Recommendations;
+			sourceTree = "<group>";
+		};
+		8A3808FA22CD94BC0089BEAF /* Add Item */ = {
+			isa = PBXGroup;
+			children = (
+				8A685BFC225A88A00058D454 /* AddItemTableViewCell.swift */,
+				8A685BFE225A8D560058D454 /* AddItemTableViewController.swift */,
+			);
+			path = "Add Item";
+			sourceTree = "<group>";
+		};
+		8A3808FB22CD94E00089BEAF /* Add Price */ = {
+			isa = PBXGroup;
+			children = (
+				8A93F29A22CB970400AEF1D5 /* AddPriceTableViewCell.swift */,
+				8A0F288522CB98AB00A68CDA /* AddPriceTableViewController.swift */,
+			);
+			path = "Add Price";
+			sourceTree = "<group>";
+		};
+		8A3808FC22CD94EB0089BEAF /* Add To List */ = {
+			isa = PBXGroup;
+			children = (
+				8A0F288722CC92B900A68CDA /* DetailsListsTableViewController.swift */,
+				8A0F288922CC954E00A68CDA /* DetailsListsTableViewCell.swift */,
+			);
+			path = "Add To List";
+			sourceTree = "<group>";
+		};
+		8A3808FD22CD94FB0089BEAF /* Add List */ = {
+			isa = PBXGroup;
+			children = (
+				8AEB7F5C22A2A4060064DA92 /* AddListTableViewCell.swift */,
+				8AEB7F5E22A2A47F0064DA92 /* AddListTableViewController.swift */,
+			);
+			path = "Add List";
+			sourceTree = "<group>";
+		};
+		8A3808FE22CD95100089BEAF /* Rename List */ = {
+			isa = PBXGroup;
+			children = (
+				8ABD0E8822CD2A1A007AAEEB /* RenameListTableViewCell.swift */,
+				8ABD0E8A22CD2ABE007AAEEB /* RenameListTableViewController.swift */,
+			);
+			path = "Rename List";
+			sourceTree = "<group>";
+		};
+		8A3808FF22CD952B0089BEAF /* List Items */ = {
+			isa = PBXGroup;
+			children = (
+				8A14E5812295125800DEA96E /* ListTableViewController.swift */,
+				8A14E583229512AD00DEA96E /* ListTableViewCell.swift */,
+			);
+			path = "List Items";
+			sourceTree = "<group>";
+		};
+		8A38090022CD953A0089BEAF /* Location Recommendations */ = {
+			isa = PBXGroup;
+			children = (
+				8A3808F522CD72570089BEAF /* RecommendationItemsTableViewCell.swift */,
+				8A3808F722CD74730089BEAF /* RecommendationsItemsTableViewController.swift */,
+			);
+			path = "Location Recommendations";
+			sourceTree = "<group>";
+		};
 		8A6364EE22579BAA000EBCC3 = {
 			isa = PBXGroup;
 			children = (
 				8A6364F922579BAA000EBCC3 /* Smart Grocery */,
 				8AC4BE5A225A380E000F3DC3 /* Smart Grocery Tests */,
 				8A6364F822579BAA000EBCC3 /* Products */,
+				3B63BC47CE561F6F05543339 /* Pods */,
+				CECBBD2BED5EAC51C422ACFB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +232,8 @@
 		8A6364F922579BAA000EBCC3 /* Smart Grocery */ = {
 			isa = PBXGroup;
 			children = (
+				8A3808EF22CD6CF10089BEAF /* Recommendations */,
+				8A14E5802295123C00DEA96E /* User List */,
 				8AB8DBE02291EB19009271B5 /* Item Details */,
 				8AC4BE67225A4C23000F3DC3 /* Item List */,
 				8AC4BE46225A36CA000F3DC3 /* Entities */,
@@ -103,6 +242,7 @@
 				8A63650122579BAC000EBCC3 /* Assets.xcassets */,
 				8A63650322579BAC000EBCC3 /* LaunchScreen.storyboard */,
 				8A63650622579BAC000EBCC3 /* Info.plist */,
+				8A14E57E2294A3E600DEA96E /* GoogleService-Info.plist */,
 			);
 			path = "Smart Grocery";
 			sourceTree = "<group>";
@@ -110,10 +250,13 @@
 		8AB8DBE02291EB19009271B5 /* Item Details */ = {
 			isa = PBXGroup;
 			children = (
+				8A3808FC22CD94EB0089BEAF /* Add To List */,
+				8A3808FB22CD94E00089BEAF /* Add Price */,
 				8A733CEB2269AD9F004BAC5F /* DetailsTableViewController.swift */,
 				8A733CE92269AD57004BAC5F /* DetailsPhotoTableViewCell.swift */,
 				8AB8DBE12291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift */,
 				8AB8DBE32291F520009271B5 /* DetailsPriceTableViewCell.swift */,
+				8A93F29822CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift */,
 			);
 			path = "Item Details";
 			sourceTree = "<group>";
@@ -139,12 +282,19 @@
 		8AC4BE67225A4C23000F3DC3 /* Item List */ = {
 			isa = PBXGroup;
 			children = (
+				8A3808FA22CD94BC0089BEAF /* Add Item */,
 				8AC4BE65225A4C0C000F3DC3 /* ItemTableViewController.swift */,
 				8AC4BE63225A4969000F3DC3 /* ItemTableViewCell.swift */,
-				8A685BFC225A88A00058D454 /* AddItemTableViewCell.swift */,
-				8A685BFE225A8D560058D454 /* AddItemTableViewController.swift */,
 			);
 			path = "Item List";
+			sourceTree = "<group>";
+		};
+		CECBBD2BED5EAC51C422ACFB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C871A301A248C81C0111472 /* Pods_Smart_Grocery.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +304,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A63650922579BAC000EBCC3 /* Build configuration list for PBXNativeTarget "Smart Grocery" */;
 			buildPhases = (
+				62977495FA1CD1ECE447FB47 /* [CP] Check Pods Manifest.lock */,
 				8A6364F322579BAA000EBCC3 /* Sources */,
 				8A6364F422579BAA000EBCC3 /* Frameworks */,
 				8A6364F522579BAA000EBCC3 /* Resources */,
+				93BE87437530CE96A103334C /* [CP] Copy Pods Resources */,
+				EC0870C7D7E5CF258C5619D2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -229,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A63650522579BAC000EBCC3 /* LaunchScreen.storyboard in Resources */,
+				8A14E57F2294A3E600DEA96E /* GoogleService-Info.plist in Resources */,
 				8A63650222579BAC000EBCC3 /* Assets.xcassets in Resources */,
 				8A63650022579BAA000EBCC3 /* Main.storyboard in Resources */,
 			);
@@ -243,22 +397,98 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		62977495FA1CD1ECE447FB47 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Smart Grocery-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93BE87437530CE96A103334C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC0870C7D7E5CF258C5619D2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Smart Grocery/Pods-Smart Grocery-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8A6364F322579BAA000EBCC3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A3808F122CD6E590089BEAF /* RecommendationsTableViewCell.swift in Sources */,
+				8A93F29B22CB970400AEF1D5 /* AddPriceTableViewCell.swift in Sources */,
+				8ABD0E8B22CD2ABE007AAEEB /* RenameListTableViewController.swift in Sources */,
+				8ABD0E8922CD2A1A007AAEEB /* RenameListTableViewCell.swift in Sources */,
 				8A733CEC2269AD9F004BAC5F /* DetailsTableViewController.swift in Sources */,
 				8A685BFF225A8D560058D454 /* AddItemTableViewController.swift in Sources */,
+				8A3808F422CD6EC10089BEAF /* RecommendationsTableViewController.swift in Sources */,
 				8AC4BE66225A4C0C000F3DC3 /* ItemTableViewController.swift in Sources */,
+				8A0F288822CC92B900A68CDA /* DetailsListsTableViewController.swift in Sources */,
 				8AB8DBE42291F520009271B5 /* DetailsPriceTableViewCell.swift in Sources */,
+				8A0F288622CB98AB00A68CDA /* AddPriceTableViewController.swift in Sources */,
+				8AEB7F5D22A2A4060064DA92 /* AddListTableViewCell.swift in Sources */,
+				8A0F288A22CC954E00A68CDA /* DetailsListsTableViewCell.swift in Sources */,
+				8A3808F822CD74730089BEAF /* RecommendationsItemsTableViewController.swift in Sources */,
+				8A14E5822295125800DEA96E /* ListTableViewController.swift in Sources */,
 				8AC4BE64225A4969000F3DC3 /* ItemTableViewCell.swift in Sources */,
+				8AEB7F5F22A2A47F0064DA92 /* AddListTableViewController.swift in Sources */,
+				8A14E584229512AD00DEA96E /* ListTableViewCell.swift in Sources */,
 				8A685BFD225A88A00058D454 /* AddItemTableViewCell.swift in Sources */,
 				8AB8DBE22291EBC5009271B5 /* DetailsCategoryLabelTableViewCell.swift in Sources */,
 				8AC4BE45225A335E000F3DC3 /* Item.swift in Sources */,
+				8A3808F622CD72570089BEAF /* RecommendationItemsTableViewCell.swift in Sources */,
+				8AEB7F5922A28FBE0064DA92 /* ListsTableViewCell.swift in Sources */,
 				8A733CEA2269AD57004BAC5F /* DetailsPhotoTableViewCell.swift in Sources */,
+				8A93F29922CB8C7400AEF1D5 /* DetailsStoresTableViewCell.swift in Sources */,
 				8AB032F02291B66100F1D0B9 /* Location.swift in Sources */,
 				8A6364FB22579BAA000EBCC3 /* AppDelegate.swift in Sources */,
+				8AEB7F5B22A291460064DA92 /* ListsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +648,7 @@
 		};
 		8A63650A22579BAC000EBCC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C8538EDF63679848A7403C6 /* Pods-Smart Grocery.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -436,6 +667,7 @@
 		};
 		8A63650B22579BAC000EBCC3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8D236D0094912B3064228DF /* Pods-Smart Grocery.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

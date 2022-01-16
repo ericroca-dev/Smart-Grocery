@@ -7,19 +7,35 @@
 //
 
 import UIKit
+import GooglePlaces
+import GoogleMaps
+import Firebase
 
-class DetailsTableViewController: UITableViewController {
+class DetailsTableViewController: UITableViewController, CLLocationManagerDelegate {
     
     //MARK: Properties
+    
+    var items = [Item]()
     
     var name: String?
     var image: UIImage?
     var category: String?
     var prices: [Double]?
     var locations: [Location]?
+    var barcode: String?
+    var placesClient: GMSPlacesClient!
+    
+    var locationManager: CLLocationManager?
+    var location: Location?
+    
+    var item: Item?
+    
+    var db: Firestore?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        placesClient = GMSPlacesClient.shared()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -34,6 +50,33 @@ class DetailsTableViewController: UITableViewController {
         
         // Disable separator inset
         tableView.separatorColor = UIColor.clear
+        
+        locationManager = CLLocationManager()
+        locationManager!.requestAlwaysAuthorization()
+        
+        // Location
+        let status = CLLocationManager.authorizationStatus()
+        
+        switch (status) {
+        case .notDetermined:
+            locationManager!.requestWhenInUseAuthorization()
+            return
+        case .denied, .restricted:
+            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+            return
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
+        
+        locationManager!.delegate = self
+        locationManager!.startUpdatingLocation()
+        
+        // Firebase Cloud Firestore initialization
+        db = Firestore.firestore()
     }
 
     // MARK: - Table view data source
@@ -43,7 +86,7 @@ class DetailsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2 + prices!.count
+        return 3 + prices!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,15 +114,66 @@ class DetailsTableViewController: UITableViewController {
             cell.selectionStyle = .none
             
             return cell
+        } else if indexPath.row == 2 {
+            let cellIdentifier = "DetailsStoresTableViewCell"
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailsStoresTableViewCell else {
+                fatalError("The dequeued cell is not an instance of DetailsStoresTableViewCell.")
+            }
+            
+            // Disable graying when tapping
+            cell.selectionStyle = .none
+            
+            return cell
         } else {
             let cellIdentifier = "DetailsPriceTableViewCell"
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailsPriceTableViewCell else {
                 fatalError("The dequeued cell is not an instance of DetailsPriceTableViewCell.")
             }
             
-            cell.priceLabel.text = String(format: "%.2f", prices![indexPath.row - 2]) + " RON"
-            cell.locationLabel.text = String(locations![indexPath.row - 2].longitude)
-            print(String(locations![indexPath.row - 2].longitude))
+            let geocoder = GMSGeocoder()
+            let coordinate = CLLocationCoordinate2DMake(locations![indexPath.row - 3].latitude, locations![indexPath.row - 3].longitude)
+            
+            var currentAddress = String()
+            
+            geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+                //
+                if error != nil {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                } else {
+                    if let places = response?.results() {
+                        if let place = places.first {
+                            
+                            if let lines = place.lines {
+                                print("GEOCODE: Formatted Address: \(lines)")
+                            }
+                            
+                            if let sublocality = place.subLocality {
+                                print("GEOCODE: Formatted Sublocality: \(sublocality)")
+                            }
+                            
+                            if let thoroughfare = place.thoroughfare {
+                                print("GEOCODE: Formatted Thoroughfare: \(thoroughfare)")
+                            }
+                            
+                            currentAddress = (place.lines?.joined(separator: "\n"))!
+                            print("Current address: \(currentAddress)")
+                            cell.locationLabel.text = currentAddress.components(separatedBy: ",")[0]
+                        } else {
+                            print("GEOCODE: nil first in places")
+                        }
+                    } else {
+                        print("GEOCODE: nil in places")
+                    }
+                }
+            }
+            
+            cell.priceLabel.text = String(format: "%.2f", prices![indexPath.row - 3]) + " RON"
+            
+            print("Current address split: \(currentAddress.components(separatedBy: ",")[0])")
+            
+            cell.priceLabel.sizeToFit()
+            cell.locationLabel.sizeToFit()
+            //print(String(locations![indexPath.row - 2].longitude))
             
             return cell
         }
@@ -88,7 +182,7 @@ class DetailsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.row == 0) {
             return 414.0
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1 || indexPath.row == 2) {
             return 44.0
         } else {
             return 88.0
@@ -129,15 +223,136 @@ class DetailsTableViewController: UITableViewController {
         return true
     }
     */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case _ where indexPath.row > 2:
+            showGoogleMaps(index: indexPath.row)
+        default:
+            return
+        }
     }
-    */
 
+    //MARK: Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+//        if segue.identifier == "ShowDetailsMap" {
+//            guard let detailsMapViewController = segue.destination as? DetailsMapViewController else {
+//                fatalError("Unexpected destination: \(segue.destination).")
+//            }
+//
+//            guard let selectedItemCell = sender as? DetailsPriceTableViewCell else {
+//                fatalError("Unexpected sender: \(sender).")
+//            }
+//
+//            guard let indexPath = tableView.indexPath(for: selectedItemCell) else {
+//                fatalError("The selected cell is not being displayed by the table.")
+//            }
+//
+//            detailsMapViewController.latitude = locations![indexPath.row - 2].latitude
+//            detailsMapViewController.longitude = locations![indexPath.row - 2].longitude
+//        }
+        
+        if segue.identifier == "DetailsLists" {
+            guard let detailsListsTableViewController = segue.destination as? DetailsListsTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination).")
+            }
+            
+            detailsListsTableViewController.item = item
+        } else if segue.identifier == "AddPrice" {
+            
+            // Get through Navigation Controller before accessing view
+            if let navigationController = segue.destination as? UINavigationController {
+                if let addPriceTableViewController = navigationController.topViewController as? AddPriceTableViewController {
+                    if Auth.auth().currentUser != nil {
+                        if (Auth.auth().currentUser!.isAnonymous) {
+                            let alertController = UIAlertController(title: "Log In", message: "You need to be logged in to add prices.", preferredStyle: .alert)
+                            
+                            let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                            }
+                            alertController.addAction(OKAction)
+                            self.present(alertController, animated: true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //MARK: Actions
+    
+    // Add price to table after user input
+    @IBAction func unwindToDetailsTable(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? AddPriceTableViewController, let price = sourceViewController.price {
+            if let index = items.firstIndex(where: {$0.name == name}) {
+                items[index].prices.append(price)
+                items[index].locations.append(location!)
+                
+                prices?.append(price)
+                locations?.append(location!)
+                
+                updateFirestore(item: item!)
+                saveItems()
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    //MARK: Location Manager
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let currentLocation = locations.last {
+            print("Current location: \(currentLocation)")
+            location = Location(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    //MARK: Private methods
+    
+    private func showGoogleMaps(index: Int) {
+        UIApplication.shared.openURL(URL(string:"comgooglemaps://?saddr=&daddr=\(locations![index - 3].latitude),\(locations![index - 3].longitude)")!)
+    }
+    
+    private func saveItems() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(items, toFile: Item.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            print("Items successfully saved.")
+        } else {
+            fatalError("Failed to save items.")
+        }
+    }
+    
+    private func updateFirestore(item: Item) {
+        db!.collection("products").whereField("name", isEqualTo: item.name).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                // Convert prices to String
+                var stringPrices: [String] = [String]()
+                for price in item.prices {
+                    stringPrices.append(String(price))
+                }
+                
+                // Convert locations to String
+                var stringLocations: [String] = [String]()
+                for location in item.locations {
+                    stringLocations.append(String(location.latitude))
+                    stringLocations.append(String(location.longitude))
+                }
+                
+                let document = querySnapshot!.documents.first
+                document!.reference.updateData([
+                    "prices": stringPrices,
+                    "locations": stringLocations
+                    ])
+            }
+        }
+    }
+    
 }

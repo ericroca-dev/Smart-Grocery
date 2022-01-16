@@ -34,6 +34,8 @@ class Item: NSObject, NSCoding {
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("items")
+    static let ListArchiveURL = DocumentsDirectory
+    static let ListsArchiveURL = DocumentsDirectory.appendingPathComponent("lists")
     
     //MARK: Initialization
     
